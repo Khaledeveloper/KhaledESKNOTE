@@ -6,7 +6,7 @@
 
               android:orientation="vertical"
               android:background="@color/white"
-             tools:context="com.example.khaled.Note.CrimeFragment"
+             tools:context="com.example.khaled.Note.NoteFragment"
     >
 
     <android.support.design.widget.AppBarLayout

@@ -75,7 +75,7 @@ public class DialogPickerFragment extends DialogFragment {
 
                         FragmentManager fragmentManager = getFragmentManager();
                 DialogPickerFragment dialogPickerFragment = DialogPickerFragment.newInstace(mDate);
-                dialogPickerFragment.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                dialogPickerFragment.setTargetFragment(NoteFragment.this, REQUEST_DATE);
                 dialogPickerFragment.show(fragmentManager ,DIALOG_DATE );
                          */
                     }

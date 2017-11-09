@@ -12,7 +12,7 @@ import com.example.khaled.Note.R;
  * Created by khaled on 16/10/2017.
  */
 
-public abstract class SingleFragmentActivity extends AppCompatActivity {
+public abstract class AbstractFragmentActivity extends AppCompatActivity {
     protected abstract Fragment creatFragment();
 
     @Override

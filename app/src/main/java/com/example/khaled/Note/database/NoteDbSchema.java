@@ -4,9 +4,9 @@ package com.example.khaled.Note.database;
  * Created by khaled on 22/10/2017.
  */
 
-public class CrimeDbSchema {
+public class NoteDbSchema {
 
-    public static final class CrimeTable{
+    public static final class NoteTable {
         public static final String NAME ="crimestab";
 
         public static final class Cols {

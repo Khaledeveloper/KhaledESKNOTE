@@ -7,7 +7,7 @@ import java.util.UUID;
  * Created by khaled on 15/10/2017.
  */
 
-public class Crime {
+public class Note {
     private String mTitle;
     private UUID mId;
     private Date mDate;
@@ -15,12 +15,12 @@ public class Crime {
     private String mContent;
     private String contactnumber;
 
-    public Crime(){
+    public Note(){
         mId = UUID.randomUUID();
        mDate = new Date();
     }
 
-    public Crime(UUID uuid){
+    public Note(UUID uuid){
         mId = uuid;
         mDate = new Date();
     }

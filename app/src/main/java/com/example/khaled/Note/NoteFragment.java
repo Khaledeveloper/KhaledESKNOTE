@@ -34,11 +34,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.khaled.Note.activities.MainActivity;
+import com.example.khaled.Note.activities.NoteListActivity;
 import com.example.khaled.Note.activities.ViewPagerActivity;
 import com.example.khaled.Note.interfaces.InterfaceOnBackPressed;
-import com.example.khaled.Note.models.Crime;
-import com.example.khaled.Note.models.CrimeLab;
+import com.example.khaled.Note.models.Note;
+import com.example.khaled.Note.models.NoteLab;
 import com.example.khaled.Note.utils.PicUtils;
 
 import java.io.File;
@@ -54,7 +54,7 @@ import java.util.UUID;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*implementsInterfaceOnSelectOptionMenuPager*/ {
+public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*implementsInterfaceOnSelectOptionMenuPager*/ {
 
 
     EditText mEditText, mContentText;
@@ -63,7 +63,7 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
     CheckBox mCheckBox;
     private ImageView IMGview, IMGviewGallery;
     private  boolean canTakePic;
-    public  Crime mCrime;
+    public Note mNote;
     private Button TakepicBtn;
     private File mPicFile, mPicGalleryFile;
 
@@ -85,14 +85,14 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
     private static final String DIALOG_DATE = "DialogDate";
 
-    public CrimeFragment() {
+    public NoteFragment() {
         // Required empty public constructor
     }
 
-    public static CrimeFragment newInstance(UUID crimeIDARG){
+    public static NoteFragment newInstance(UUID crimeIDARG){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID,crimeIDARG);
-        CrimeFragment fragment = new CrimeFragment();
+        NoteFragment fragment = new NoteFragment();
         fragment.setArguments(args);
         return fragment;
 
@@ -129,9 +129,9 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
        /* this was for intent UUID CrimeID =(UUID) getActivity().getIntent()
                 .getSerializableExtra(MainActivity.Crime_ID_KEY);*/
        UUID CrimeID =(UUID)getArguments().getSerializable(ARG_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(CrimeID);
+        mNote = NoteLab.get(getActivity()).getCrime(CrimeID);
         //requere premission
-        mPicFile= CrimeLab.get(getActivity()).getPhotoFile(mCrime);
+        mPicFile= NoteLab.get(getActivity()).getPhotoFile(mNote);
     }
 
 
@@ -143,14 +143,14 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
         Log.d(ViewPagerActivity.TAG,"onPaused Fragment");
 
-        CrimeLab.get(getActivity()).updateCrime(mCrime);
+        NoteLab.get(getActivity()).updateCrime(mNote);
     }
 
 
 
     public  void deleteEmptyNote(){
-        if (mCrime.getTitle()==null && mCrime.getContent()== null){
-            CrimeLab.get(getActivity()).deleteNote(mCrime);
+        if (mNote.getTitle()==null && mNote.getContent()== null){
+            NoteLab.get(getActivity()).deleteNote(mNote);
         }
     }
 
@@ -206,8 +206,8 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
 
         ChooseContactbtn=(Button)v.findViewById(R.id.choosecontactbtnID);
-        if (mCrime.getContactnumber()!=null) {
-            ChooseContactbtn.setText(mCrime.getContactnumber());
+        if (mNote.getContactnumber()!=null) {
+            ChooseContactbtn.setText(mNote.getContactnumber());
         }
         final Intent intentcontact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         ChooseContactbtn.setOnClickListener(new View.OnClickListener() {
@@ -252,10 +252,10 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
 
         mCheckBox=(CheckBox)v.findViewById(R.id.crime_solvedCheckID);
-       // mCheckBox.setChecked(mCrime.isSolved());
+       // mCheckBox.setChecked(mNote.isSolved());
         mDateButtn=(Button)v.findViewById(R.id.crime_dateBtnID);
         mEditText =(EditText)v.findViewById(R.id.EditTextFragmentID);
-        mEditText.setText(mCrime.getTitle());
+        mEditText.setText(mNote.getTitle());
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -264,7 +264,7 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                     mCrime.setTitle(s.toString());
+                     mNote.setTitle(s.toString());
             }
 
             @Override
@@ -273,19 +273,19 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
             }
         });
 
-       // mDateButtn.setText(mCrime.getDate().toString());
+       // mDateButtn.setText(mNote.getDate().toString());
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         df.setTimeZone(TimeZone.getDefault());
-        String date = df.format(mCrime.getDate());
+        String date = df.format(mNote.getDate());
         mDateButtn.setText(date);
         //mDateButtn.setEnabled(false);
-        mCheckBox.setChecked(mCrime.isSolved());
+        mCheckBox.setChecked(mNote.isSolved());
 
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mCrime.setSolved(true);
+                mNote.setSolved(true);
 
             }
         });
@@ -293,17 +293,17 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
         mDateButtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDate = mCrime.getDate();
+                mDate = mNote.getDate();
                 FragmentManager fragmentManager = getFragmentManager();
                 DialogPickerFragment dialogPickerFragment = DialogPickerFragment.newInstace(mDate);
-                dialogPickerFragment.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                dialogPickerFragment.setTargetFragment(NoteFragment.this, REQUEST_DATE);
                 dialogPickerFragment.show(fragmentManager ,DIALOG_DATE );
 
             }
         });
 
         mContentText =(EditText)v.findViewById(R.id.NoteContentID);
-        mContentText.setText(mCrime.getContent());
+        mContentText.setText(mNote.getContent());
         mContentText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -312,7 +312,7 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                   mCrime.setContent(s.toString());
+                   mNote.setContent(s.toString());
             }
 
             @Override
@@ -345,7 +345,7 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
         String Content = mContentText.toString();
 
         if (Title.length()<1 && Content.length()<1){
-            CrimeLab.get(getActivity()).deleteNote(mCrime);
+            NoteLab.get(getActivity()).deleteNote(mNote);
         }else if ((Title.length()>0 || Content.length()>0)){
             Toast.makeText(getActivity(), R.string.saved, Toast.LENGTH_SHORT).show();
         }
@@ -390,7 +390,7 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
         if (requestCode == REQUEST_DATE){
             Date date =(Date)data
                     .getSerializableExtra(DialogPickerFragment.DATE_KEY_BACK);
-            mCrime.setDate(date);
+            mNote.setDate(date);
             DateUpdate();
         }else if (requestCode == REQUEST_CONTACT && data!=null){
             Uri contactUri = data.getData();
@@ -407,7 +407,7 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
                 c.moveToFirst();
                 String contact = c.getString(0);
-                mCrime.setContactnumber(contact);
+                mNote.setContactnumber(contact);
                 ChooseContactbtn.setText(contact);
             }finally {
                 c.close();
@@ -451,8 +451,8 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         df.setTimeZone(TimeZone.getDefault());
-        String date = df.format(mCrime.getDate());
-       // mDateButtn.setText(mCrime.getDate().toString());
+        String date = df.format(mNote.getDate());
+       // mDateButtn.setText(mNote.getDate().toString());
 
         mDateButtn.setText(date);
     }
@@ -537,23 +537,23 @@ public class CrimeFragment extends Fragment implements InterfaceOnBackPressed /*
 
  private String getNoteContent(){
      String checksolved = null;
-     if (mCrime.isSolved()){
+     if (mNote.isSolved()){
          checksolved= getString(R.string.crime_report_solved);
      }else{
          checksolved=getString(R.string.crime_report_unsolved);
      }
 
      String dateFormat = "EEE, MMM dd - yyyy";
-     String dateString = (String) android.text.format.DateFormat.format( dateFormat,mCrime.getDate());
+     String dateString = (String) android.text.format.DateFormat.format( dateFormat, mNote.getDate());
 
-     String Contactnumber= mCrime.getContactnumber();
+     String Contactnumber= mNote.getContactnumber();
      if (Contactnumber == null){
          Contactnumber= getString(R.string.crime_report_no_suspect);
      }else {
          Contactnumber = getString(R.string.crime_report_suspect , Contactnumber);
      }
 
-     String sharecontent = getString(R.string.share_note, mCrime.getTitle(), mCrime.getContent(), dateString ,checksolved, Contactnumber);
+     String sharecontent = getString(R.string.share_note, mNote.getTitle(), mNote.getContent(), dateString ,checksolved, Contactnumber);
 
      return sharecontent;
  }
@@ -614,14 +614,18 @@ public void PicGalleryUpdate(Intent data) {
 
     @Override
     public void InterfaceOnBackPressed() {
-        getActivity().finish();
-
-
-        getActivity().getSupportFragmentManager().popBackStack();
-
-
 
         deleteEmptyNote();
+        Intent intent = new Intent(getActivity(), NoteListActivity.class);
+        startActivity(intent);
+       // getActivity().finish();
+
+
+       // getActivity().getSupportFragmentManager().popBackStack();
+
+
+
+
 
       Log.d(TAG,"###################################onBackPressed.......................................");
 
