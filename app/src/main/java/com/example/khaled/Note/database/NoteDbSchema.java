@@ -18,6 +18,17 @@ public class NoteDbSchema {
             public static final String  SOLVED ="solved";
             public static final String CONTACTNUMBER ="CONTACTNUMBER";
 
+            public static final String FOLDER ="Folder";
+            public static final String TITLECOLOR="titlecolor";
+            public static final String CONTENTCOLOR="contentcolor";
+            public static final String TITLESIZE="titlesize";
+            public static final String CONTENTSIZE="contentsize";
+            public static final String NOTEBACKGROUND="notebackground";
+            public static final String TOOLBARLISTCOLOR="toolbarlistcolor";
+            public static final String TOOLBARNOTECOLOR="toolbarnotecolor";
+
+
+
         }
 
 

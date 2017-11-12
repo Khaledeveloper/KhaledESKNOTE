@@ -70,6 +70,18 @@ public class NoteLab {
         contentValues.put(NoteTable.Cols.SOLVED, note.isSolved()?1:0);
         contentValues.put(NoteTable.Cols.CONTACTNUMBER, note.getContactnumber());
 
+        contentValues.put(NoteTable.Cols.FOLDER, note.getFolder());
+        contentValues.put(NoteTable.Cols.TITLECOLOR, note.getTitleColor());
+        contentValues.put(NoteTable.Cols.CONTENTCOLOR, note.getContentColor());
+        contentValues.put(NoteTable.Cols.TITLESIZE, note.getTitlSize());
+        contentValues.put(NoteTable.Cols.CONTENTSIZE, note.getContentSize());
+        contentValues.put(NoteTable.Cols.NOTEBACKGROUND, note.getNoteBackground());
+        contentValues.put(NoteTable.Cols.TOOLBARLISTCOLOR,note.getToolbarListColor());
+        contentValues.put(NoteTable.Cols.TOOLBARNOTECOLOR, note.getToolbarNoteColor());
+
+
+
+
         return contentValues;
     }
 

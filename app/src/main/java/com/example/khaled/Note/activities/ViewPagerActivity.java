@@ -100,6 +100,6 @@ public static void setOnBackPressed(InterfaceOnBackPressed interfaceback){
 
             interfaceBack.InterfaceOnBackPressed();
         }
-        super.onBackPressed();
+       // super.onBackPressed();
     }
 }

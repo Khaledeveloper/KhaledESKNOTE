@@ -1,5 +1,7 @@
 package com.example.khaled.Note.models;
 
+import com.example.khaled.Note.R;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,6 +16,81 @@ public class Note {
     private boolean mSolved;
     private String mContent;
     private String contactnumber;
+
+    private String mFolder;
+    private int TitleColor;
+    private int mContentColor;
+    private int mTitlSize;
+    private int mContentSize;
+    private int mNoteBackground;
+    private int ToolbarListColor;
+    private int ToolbarNoteColor;
+
+    public int getContentColor() {
+        return mContentColor;
+    }
+
+    public void setContentColor(int contentColor) {
+        mContentColor = contentColor;
+    }
+
+    public int getTitlSize() {
+        return mTitlSize;
+    }
+
+    public void setTitlSize(int titlSize) {
+        mTitlSize = titlSize;
+    }
+
+    public int getContentSize() {
+        return mContentSize;
+    }
+
+    public void setContentSize(int contentSize) {
+        mContentSize = contentSize;
+    }
+
+    public int getNoteBackground() {
+        return mNoteBackground;
+    }
+
+    public void setNoteBackground(int noteBackground) {
+        mNoteBackground = noteBackground;
+    }
+
+    public int getToolbarListColor() {
+        return ToolbarListColor;
+    }
+
+    public void setToolbarListColor(int toolbarListColor) {
+        ToolbarListColor = toolbarListColor;
+    }
+
+    public int getToolbarNoteColor() {
+        return ToolbarNoteColor;
+    }
+
+    public void setToolbarNoteColor(int toolbarNoteColor) {
+        ToolbarNoteColor = toolbarNoteColor;
+    }
+
+    public String getFolder() {
+        return mFolder;
+    }
+
+    public void setFolder(String folder) {
+        mFolder = folder;
+    }
+
+    public int getTitleColor() {
+        return TitleColor;
+    }
+
+    public void setTitleColor(int titleColor) {
+        TitleColor = titleColor;
+    }
+
+
 
     public Note(){
         mId = UUID.randomUUID();

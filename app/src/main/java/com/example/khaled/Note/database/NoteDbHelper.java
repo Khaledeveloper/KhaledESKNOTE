@@ -30,7 +30,15 @@ public class NoteDbHelper extends SQLiteOpenHelper {
                 NoteTable.Cols.CONTENT+","+
                 NoteTable.Cols.DATE+","+
                 NoteTable.Cols.SOLVED+","+
-                NoteTable.Cols.CONTACTNUMBER+
+                NoteTable.Cols.CONTACTNUMBER+","+
+                        NoteTable.Cols.FOLDER+","+
+                NoteTable.Cols.TITLECOLOR+","+
+                        NoteTable.Cols.CONTENTCOLOR+","+
+                        NoteTable.Cols.TITLESIZE+","+
+                        NoteTable.Cols.CONTENTSIZE+","+
+                        NoteTable.Cols.NOTEBACKGROUND+","+
+                        NoteTable.Cols.TOOLBARLISTCOLOR+","+
+                        NoteTable.Cols.TOOLBARNOTECOLOR+
                         ")"
         );
 

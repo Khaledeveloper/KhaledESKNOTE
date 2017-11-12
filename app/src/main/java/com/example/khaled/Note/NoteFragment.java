@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -256,6 +257,8 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         mDateButtn=(Button)v.findViewById(R.id.crime_dateBtnID);
         mEditText =(EditText)v.findViewById(R.id.EditTextFragmentID);
         mEditText.setText(mNote.getTitle());
+
+
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -272,6 +275,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
             }
         });
+       // mEditText.setTextColor(mNote.getTitleColor());
 
        // mDateButtn.setText(mNote.getDate().toString());
 
@@ -519,12 +523,15 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         }
 
         if (id== R.id.cameratoolbarID){
-            cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            mNote.setTitleColor(R.color.midbrown);
+            mEditText.setTextColor(mNote.getTitleColor());
+
+          /*  cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             Uri uri = Uri.fromFile(mPicFile);
             cameraintent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
 
-            startActivityForResult(cameraintent, REQUEST_PIC);
+            startActivityForResult(cameraintent, REQUEST_PIC);*/
 
 
 
@@ -614,11 +621,12 @@ public void PicGalleryUpdate(Intent data) {
 
     @Override
     public void InterfaceOnBackPressed() {
+        getActivity().finish();
 
         deleteEmptyNote();
-        Intent intent = new Intent(getActivity(), NoteListActivity.class);
-        startActivity(intent);
-       // getActivity().finish();
+       /* Intent intent = new Intent(getActivity(), NoteListActivity.class);
+        startActivity(intent);*/
+
 
 
        // getActivity().getSupportFragmentManager().popBackStack();

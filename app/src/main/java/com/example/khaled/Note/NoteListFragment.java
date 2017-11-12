@@ -4,8 +4,11 @@ package com.example.khaled.Note;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -38,10 +41,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoteListFragment extends Fragment implements InterfaceOnLongClick,InterfacePopupMenuMainRecycler, SearchView.OnQueryTextListener {
+public class NoteListFragment extends Fragment implements InterfaceOnLongClick,InterfacePopupMenuMainRecycler, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
     public static final String TAG = "TAG";
     NoteMListAdapter mAdapter;
     Toolbar mToolbar;
+    public String Folder ="MainList";
     FloatingActionButton mFAB;
     private DrawerLayout mDrawerLayout;
     //private ActionBarDrawerToggle mActionBarDrawerToggle;
@@ -89,6 +93,11 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         }
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
+
+        NavigationView navigationView =(NavigationView)view.findViewById(R.id.NavigationMainID);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
 
         TextView textViewToolbar =(TextView)view.findViewById(R.id.TextviewToolbarRecyclerviewID);
 
@@ -234,6 +243,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         startActivity(intent);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -243,9 +253,27 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
 
 
+
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected( MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id== R.id.GalleryMainMAINID){
+            Toast.makeText(getActivity(), "donnnnnneeee!!!", Toast.LENGTH_SHORT).show();
+
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+
+
+        return true;
     }
 }
