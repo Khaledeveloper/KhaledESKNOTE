@@ -146,7 +146,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
             //UUID CrimeID = note.getId();
             //changing the intent from Mainactivity to ViewPager
             //  Intent intent = MainActivity.newIntent(getActivity(),mNote.getId());
-            Intent intent = ViewPagerActivity.newIntent(mContext, mNote.getId());
+            Intent intent = ViewPagerActivity.newIntent(mContext, mNote.getId(),mNote.getFolder());
            mContext.startActivity(intent);
 
            /* Intent intent = new Intent(getActivity(),MainActivity.class);

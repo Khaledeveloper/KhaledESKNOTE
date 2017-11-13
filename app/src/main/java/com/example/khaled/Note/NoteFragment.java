@@ -67,7 +67,8 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
     public Note mNote;
     private Button TakepicBtn;
     private File mPicFile, mPicGalleryFile;
-
+    public  String Folder;
+  public static final String FOLDER_ARGS ="FOLDERARGS";
     public static final String TAG ="crimeFragment";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT =1;
@@ -90,9 +91,10 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         // Required empty public constructor
     }
 
-    public static NoteFragment newInstance(UUID crimeIDARG){
+    public static NoteFragment newInstance(UUID crimeIDARG,String Folder){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID,crimeIDARG);
+        args.putString(FOLDER_ARGS,Folder);
         NoteFragment fragment = new NoteFragment();
         fragment.setArguments(args);
         return fragment;
@@ -129,8 +131,10 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
        /* this was for intent UUID CrimeID =(UUID) getActivity().getIntent()
                 .getSerializableExtra(MainActivity.Crime_ID_KEY);*/
+    Folder = getArguments().getString(FOLDER_ARGS);
        UUID CrimeID =(UUID)getArguments().getSerializable(ARG_CRIME_ID);
         mNote = NoteLab.get(getActivity()).getCrime(CrimeID);
+
         //requere premission
         mPicFile= NoteLab.get(getActivity()).getPhotoFile(mNote);
     }
@@ -168,6 +172,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
         setHasOptionsMenu(true);
         Log.d(ViewPagerActivity.TAG,"onCreateView....");
+        mNote.setFolder(Folder);
 
   mToolbar =(Toolbar)v.findViewById(R.id.ToolbarnorecontentID);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
@@ -511,7 +516,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
       }
         if (id== R.id.sharenotefragmentID){
-            Toast.makeText(getActivity(), "viewpager", Toast.LENGTH_SHORT).show();
+           /* Toast.makeText(getActivity(), "viewpager", Toast.LENGTH_SHORT).show();
             Log.d(ViewPagerActivity.TAG,"share pressed");
 
             Intent intent = new Intent(Intent.ACTION_SEND);
@@ -519,7 +524,10 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
             intent.putExtra(Intent.EXTRA_TEXT , getNoteContent());
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
             intent = Intent.createChooser( intent , getString(R.string.send_report));
-            startActivity(intent);
+            startActivity(intent);*/
+
+            Toast.makeText(getActivity(), mNote.getFolder(), Toast.LENGTH_SHORT).show();
+
         }
 
         if (id== R.id.cameratoolbarID){

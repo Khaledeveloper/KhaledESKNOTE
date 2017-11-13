@@ -156,8 +156,10 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
     @Override
     public void onLongClickInterface(View view, int position) {
+        Note note = new Note();
+        String Folder_Name = NoteLab.get(getActivity()).getCrime(note.getId()).getFolder();
 
-        Toast.makeText(getActivity(), "Interface done!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), Folder_Name, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -239,7 +241,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
     public void AddNewCrime(){
         Note note = new Note();
         NoteLab.get(getActivity()).addCrime(note);
-        Intent intent = ViewPagerActivity.newIntent(getActivity(), note.getId());
+        Intent intent = ViewPagerActivity.newIntent(getActivity(), note.getId(), Folder);
         startActivity(intent);
     }
 
@@ -268,6 +270,8 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         int id = item.getItemId();
 
         if (id== R.id.GalleryMainMAINID){
+
+            Folder= "birthday";
             Toast.makeText(getActivity(), "donnnnnneeee!!!", Toast.LENGTH_SHORT).show();
 
         }

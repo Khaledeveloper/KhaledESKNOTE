@@ -29,10 +29,12 @@ public class ViewPagerActivity extends AppCompatActivity {
     private List<Note> mNote;
     Toolbar mToolbar;
 private static final String CRIMID_KEY ="com.example.khaled.crime.crimeIDViewPager";
+    private static final String FOLDER_NAME ="FOLDERNAME";
 
-    public static Intent newIntent(Context context, UUID crimeid){
+    public static Intent newIntent(Context context, UUID crimeid, String Folder){
         Intent intent = new Intent(context,ViewPagerActivity.class);
         intent.putExtra(CRIMID_KEY,crimeid);
+        intent.putExtra(FOLDER_NAME, Folder);
 
         return intent;
     }
@@ -51,6 +53,7 @@ private static final String CRIMID_KEY ="com.example.khaled.crime.crimeIDViewPag
 
         mViewPager=(ViewPager)findViewById(R.id.ViewPagerID);
         UUID crimeID =(UUID) getIntent().getSerializableExtra(CRIMID_KEY);
+        final String Folder = getIntent().getStringExtra(FOLDER_NAME);
 
         mNote = NoteLab.get(this).getCrimes();
         FragmentManager fm = getSupportFragmentManager();
@@ -59,7 +62,7 @@ private static final String CRIMID_KEY ="com.example.khaled.crime.crimeIDViewPag
             @Override
             public Fragment getItem(int position) {
                 Note note = mNote.get(position);
-                return NoteFragment.newInstance(note.getId());
+                return NoteFragment.newInstance(note.getId(),Folder);
             }
 
             @Override
