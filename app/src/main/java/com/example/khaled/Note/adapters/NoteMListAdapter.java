@@ -119,7 +119,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
         public void Bindcrime(Note note){
             mNote = note;
 
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat df = new SimpleDateFormat("E, MMM d, yyyy");
             df.setTimeZone(TimeZone.getDefault());
             String date = df.format(mNote.getDate());
 
@@ -206,12 +206,12 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
         holder.menudots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(mContext,holder.menudots);
+                final PopupMenu popupMenu = new PopupMenu(mContext,holder.menudots);
                 popupMenu.inflate(R.menu.menudotsmain);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        mInterfacePopupMenuMainRecycler.onClickPopUpMenuMainRecycler(item, mContext , position);
+                        mInterfacePopupMenuMainRecycler.onClickPopUpMenuMainRecycler(item, mContext , position , popupMenu);
                         int id = item.getItemId();
 
 

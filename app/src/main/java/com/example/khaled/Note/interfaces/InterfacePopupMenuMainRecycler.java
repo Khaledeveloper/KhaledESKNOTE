@@ -1,6 +1,7 @@
 package com.example.khaled.Note.interfaces;
 
 import android.content.Context;
+import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 
 /**
@@ -9,5 +10,5 @@ import android.view.MenuItem;
 
 public interface InterfacePopupMenuMainRecycler {
 
-    void onClickPopUpMenuMainRecycler(MenuItem item , Context context, int Position);
+    void onClickPopUpMenuMainRecycler(MenuItem item , Context context, int Position, PopupMenu popupMenu);
 }

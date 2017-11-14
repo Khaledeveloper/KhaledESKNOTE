@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:app="http://schemas.android.com/apk/res-auto"
                  android:orientation="vertical"
                  android:layout_width="match_parent"
@@ -9,9 +9,13 @@
 
 
 
+
+
+
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/cardviewRow"
 
         android:elevation="10dp"
@@ -20,76 +24,119 @@
         app:cardBackgroundColor="@color/white"
         android:padding="10dp"
 
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
-    <RelativeLayout
-            android:layout_width="match_parent"
+        >
+        <CheckBox
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp">
-        <Button
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:id="@+id/menudotsmainID"
-            android:paddingTop="20dp"
-            android:background="@drawable/menu_dots_black_24"/>
+            android:id="@+id/CheckBox_list_ctimeID"
+            android:padding="4dp"
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/CheckBox_list_ctimeID"
-                android:padding="4dp"
-                android:layout_alignParentRight="true"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/CrimeTitle_listID"
-                android:padding="4dp"
-                android:textSize="18sp"
-                android:textColor="@color/darkblack"
-
-                android:textStyle="bold"
-
-                android:layout_toLeftOf="@id/CheckBox_list_ctimeID"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/NoteContentRowID"
-                android:padding="4dp"
-                android:textColor="@color/darkblack"
+            />
 
 
-                android:layout_below="@id/CrimeTitle_listID"
-                />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/CrimeDate_listID"
-                android:layout_below="@id/NoteContentRowID"
-                android:padding="10dp"
-                android:textSize="12sp"
-
-
-                />
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkTodeleteID"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/NoteContentRowID"
+
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+
+                    android:id="@+id/CrimeTitle_listID"
+
+                    android:textSize="18sp"
+                    android:textColor="@color/darkblack"
+
+
+                    android:textStyle="bold"
+
+                    />
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="10dp"
+
+
+
+                    android:id="@+id/menudotsmainID"
+
+                    android:background="@drawable/menu_dots_black_24"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/NoteContentRowID"
+                    android:padding="4dp"
+                    android:paddingLeft="10dp"
+                    android:maxLines="4"
+                    android:minLines="3"
+                    android:textColor="@color/darkblack"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="@string/created"
+                        android:paddingLeft="10dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/CrimeDate_listID"
+                        android:padding="2dp"
+                        android:textSize="10sp"
+
+                        />
+
+                </LinearLayout>
 
 
 
 
-        </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
 
     </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+</LinearLayout>

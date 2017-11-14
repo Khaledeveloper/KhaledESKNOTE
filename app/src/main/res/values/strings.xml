@@ -39,5 +39,10 @@
     <string name="Search">Search</string>
     <string name="Deleted">Deleted!</string>
     <string name="saved">Saved!</string>
+    <string name="Favorite">Favorite</string>
+    <string name="main_notes">Main Notes</string>
+    <string name="trash">Trash</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="created">Created:</string>
 
 </resources>

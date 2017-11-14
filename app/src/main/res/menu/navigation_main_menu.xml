@@ -20,14 +20,21 @@
     <item android:title="@string/new_note">
 
         <menu>
-            <item android:id="@+id/mainCameraID"
-                android:title="@string/Camera"
-                android:icon="@drawable/ic_photo_camera_black_24dp"/>
+            <item
+                android:id="@+id/MainListID"
+                android:title="@string/main_notes"
+                android:icon="@drawable/ic_action_name"/>
 
-            <item android:id="@+id/GalleryMainMAINID"
-                android:title="@string/Gallery"
+            <item android:id="@+id/FavoriteMainID"
+                android:title="@string/Favorite"
+                android:icon="@drawable/ic_favorite"/>
 
-                android:icon="@drawable/ic_image_black_24dp"/>
+            <item android:id="@+id/TrashMainID"
+                android:title="@string/trash"
+
+                android:icon="@drawable/ic_trash"/>
+
+
 
 
 

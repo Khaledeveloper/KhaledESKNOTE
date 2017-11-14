@@ -55,7 +55,7 @@ private static final String CRIMID_KEY ="com.example.khaled.crime.crimeIDViewPag
         UUID crimeID =(UUID) getIntent().getSerializableExtra(CRIMID_KEY);
         final String Folder = getIntent().getStringExtra(FOLDER_NAME);
 
-        mNote = NoteLab.get(this).getCrimes();
+        mNote = NoteLab.get(this).getCrimes(Folder);
         FragmentManager fm = getSupportFragmentManager();
         //fragmentstatepager adapter diffrent the fragmentpageradapter
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {

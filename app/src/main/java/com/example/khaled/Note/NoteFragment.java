@@ -172,7 +172,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
         setHasOptionsMenu(true);
         Log.d(ViewPagerActivity.TAG,"onCreateView....");
-        mNote.setFolder(Folder);
+      //  mNote.setFolder(Folder);
 
   mToolbar =(Toolbar)v.findViewById(R.id.ToolbarnorecontentID);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);

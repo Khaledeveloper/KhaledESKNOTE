@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +49,7 @@ public class NoteListFragment extends Fragment implements InterfaceOnLongClick,I
     Toolbar mToolbar;
     public String Folder ="MainList";
     FloatingActionButton mFAB;
+    PopupMenu pop;
     private DrawerLayout mDrawerLayout;
     //private ActionBarDrawerToggle mActionBarDrawerToggle;
     static boolean isSelected = false;
@@ -119,6 +122,13 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
         }
 
+        if (Folder.equals("Trash")){
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) mFAB.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            mFAB.setLayoutParams(p);
+            mFAB.setVisibility(View.GONE);
+        }
+
 
 
         return view;
@@ -137,7 +147,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
     private void RecyclerUpdate(){
         NoteLab noteLab = NoteLab.get(getActivity());
-         notes = noteLab.getCrimes();
+         notes = noteLab.getCrimes(Folder);
         if (mAdapter == null) {
             mAdapter = new NoteMListAdapter(notes,this, this,getActivity());
             mRecyclerView.setAdapter(mAdapter);
@@ -156,26 +166,59 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
     @Override
     public void onLongClickInterface(View view, int position) {
-        Note note = new Note();
-        String Folder_Name = NoteLab.get(getActivity()).getCrime(note.getId()).getFolder();
-
+        Note note = notes.get(position);
+       // String Folder_Name = NoteLab.get(getActivity()).getCrime(note.getId()).getFolder();
+         String Folder_Name = note.getFolder();
         Toast.makeText(getActivity(), Folder_Name, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
-    public void onClickPopUpMenuMainRecycler(MenuItem item, Context context, int Position) {
+    public void onClickPopUpMenuMainRecycler(MenuItem item, Context context, int Position , PopupMenu popupMenu) {
+        pop = popupMenu;
         Note note = notes.get(Position);
+       if (Folder.equals("Favorite")){
+               pop.getMenu().findItem(R.id.favoritemenudotsmainID).setTitle("Remove");
+
+        }
         int id = item.getItemId();
         if (id == R.id.deletemenudotsmainID){
-            NoteLab.get(getActivity()).deleteNote(note);
-            RecyclerUpdate();
+            if (Folder.equals("Trash")) {
+                NoteLab.get(getActivity()).deleteNote(note);
+                RecyclerUpdate();
+            }else {
+                //this two lines for updating
+                note.setFolder("Trash");
+                NoteLab.get(getActivity()).updateCrime(note);
+                //
+                //Toast.makeText(getActivity(), "zzZZzzzZzzzZ"+ note.getFolder(), Toast.LENGTH_SHORT).show();
+                RecyclerUpdate();
+            }
            /* mAdapter = new NoteMListAdapter(notes,this, this,getActivity());
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setCrimes(notes);
             mAdapter.notifyDataSetChanged();*/
-            Toast.makeText(getActivity(), R.string.Deleted , Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), R.string.Deleted , Toast.LENGTH_SHORT).show();
             Log.d(TAG,"menu interface done!!!............................"+ note.getId().toString()+ Position);
+        }
+
+        if (id == R.id.favoritemenudotsmainID){
+            if (Folder.equals("Favorite")){
+
+
+
+                note.setFolder("MainList");
+                NoteLab.get(getActivity()).updateCrime(note);
+
+                RecyclerUpdate();
+            }else {
+                note.setFolder("Favorite");
+                NoteLab.get(getActivity()).updateCrime(note);
+
+                RecyclerUpdate();
+
+            }
+
         }
     }
 
@@ -240,7 +283,9 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
     }
     public void AddNewCrime(){
         Note note = new Note();
+        note.setFolder(Folder); //set folder before add crime
         NoteLab.get(getActivity()).addCrime(note);
+
         Intent intent = ViewPagerActivity.newIntent(getActivity(), note.getId(), Folder);
         startActivity(intent);
     }
@@ -269,13 +314,31 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
         int id = item.getItemId();
 
-        if (id== R.id.GalleryMainMAINID){
+        if (id== R.id.TrashMainID){
 
-            Folder= "birthday";
-            Toast.makeText(getActivity(), "donnnnnneeee!!!", Toast.LENGTH_SHORT).show();
+            Folder= "Trash";
+            RecyclerUpdate();
+           // Toast.makeText(getActivity(), "donnnnnneeee!!!", Toast.LENGTH_SHORT).show();
+
+        }
+        if (id == R.id.MainListID){
+            Folder ="MainList";
+            RecyclerUpdate();
+
+        }
+
+        if (id == R.id.FavoriteMainID){
+
+            if (item.getItemId()==R.id.favoritemenudotsmainID){
+
+            }
+            Folder ="Favorite";
+            RecyclerUpdate();
 
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
+        mToolbar.setTitle(Folder);
+        Toast.makeText(getActivity(), Folder, Toast.LENGTH_SHORT).show();
 
 
         return true;
