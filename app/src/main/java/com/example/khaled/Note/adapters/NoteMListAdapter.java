@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.khaled.Note.R;
 import com.example.khaled.Note.activities.ViewPagerActivity;
+import com.example.khaled.Note.interfaces.InterfaceOnCreatePopUpMenuMain;
 import com.example.khaled.Note.interfaces.InterfaceOnLongClick;
 import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
@@ -30,15 +31,17 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
     Context mContext;
     InterfaceOnLongClick mInterfaceOnLongClick;
     InterfacePopupMenuMainRecycler mInterfacePopupMenuMainRecycler;
+    InterfaceOnCreatePopUpMenuMain interfaceOnCreatePopUpMenuMain;
     // NoteListActivity mCrimeListActivity;
     //   NoteListFragment mCrimeListFragment;
 
 
-    public NoteMListAdapter(List<Note> notes, InterfaceOnLongClick interfaceOnlong, InterfacePopupMenuMainRecycler interfacePopupMenuMainRecycler, Context context) {
+    public NoteMListAdapter(List<Note> notes, InterfaceOnLongClick interfaceOnlong, InterfacePopupMenuMainRecycler interfacePopupMenuMainRecycler, InterfaceOnCreatePopUpMenuMain interfaceOnCreatePopUpMenuMain, Context context) {
         // this.mContext = ctx;
         mNotes = notes;
         this.mInterfaceOnLongClick = interfaceOnlong;
         this.mInterfacePopupMenuMainRecycler = interfacePopupMenuMainRecycler;
+        this.interfaceOnCreatePopUpMenuMain = interfaceOnCreatePopUpMenuMain;
         this.mContext = context;
 
         //   this.mCrimeListActivity =(NoteListActivity) mContext;
@@ -207,7 +210,12 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
             @Override
             public void onClick(View v) {
                 final PopupMenu popupMenu = new PopupMenu(mContext,holder.menudots);
-                popupMenu.inflate(R.menu.menudotsmain);
+
+                if (interfaceOnCreatePopUpMenuMain!=null){
+                    interfaceOnCreatePopUpMenuMain.InterFaceonInflatePopUp(v , popupMenu, position);
+                }
+
+               // popupMenu.inflate(R.menu.menudotsmain);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {

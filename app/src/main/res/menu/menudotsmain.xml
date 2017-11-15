@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/deletemenudotsmainID"
-          android:title="@string/delete"
+    <item android:id="@+id/removemenudotsmainID"
+          android:title="@string/Remove"
         android:icon="@drawable/ic_trash"/>
 
     <item android:id="@+id/favoritemenudotsmainID"

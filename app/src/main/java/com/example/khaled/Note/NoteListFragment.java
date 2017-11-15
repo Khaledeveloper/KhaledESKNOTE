@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.khaled.Note.activities.ViewPagerActivity;
 import com.example.khaled.Note.adapters.NoteMListAdapter;
+import com.example.khaled.Note.interfaces.InterfaceOnCreatePopUpMenuMain;
 import com.example.khaled.Note.interfaces.InterfaceOnLongClick;
 import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
@@ -43,7 +44,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoteListFragment extends Fragment implements InterfaceOnLongClick,InterfacePopupMenuMainRecycler, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+public class NoteListFragment extends Fragment implements InterfaceOnLongClick,InterfacePopupMenuMainRecycler, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener ,InterfaceOnCreatePopUpMenuMain {
     public static final String TAG = "TAG";
     NoteMListAdapter mAdapter;
     Toolbar mToolbar;
@@ -149,7 +150,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         NoteLab noteLab = NoteLab.get(getActivity());
          notes = noteLab.getCrimes(Folder);
         if (mAdapter == null) {
-            mAdapter = new NoteMListAdapter(notes,this, this,getActivity());
+            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity());
             mRecyclerView.setAdapter(mAdapter);
         }else {
             mAdapter.setCrimes(notes);
@@ -177,23 +178,12 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
     public void onClickPopUpMenuMainRecycler(MenuItem item, Context context, int Position , PopupMenu popupMenu) {
         pop = popupMenu;
         Note note = notes.get(Position);
-       if (Folder.equals("Favorite")){
-               pop.getMenu().findItem(R.id.favoritemenudotsmainID).setTitle("Remove");
 
-        }
         int id = item.getItemId();
         if (id == R.id.deletemenudotsmainID){
-            if (Folder.equals("Trash")) {
-                NoteLab.get(getActivity()).deleteNote(note);
-                RecyclerUpdate();
-            }else {
-                //this two lines for updating
-                note.setFolder("Trash");
-                NoteLab.get(getActivity()).updateCrime(note);
-                //
-                //Toast.makeText(getActivity(), "zzZZzzzZzzzZ"+ note.getFolder(), Toast.LENGTH_SHORT).show();
-                RecyclerUpdate();
-            }
+            NoteLab.get(getActivity()).deleteNote(note);
+            RecyclerUpdate();
+
            /* mAdapter = new NoteMListAdapter(notes,this, this,getActivity());
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setCrimes(notes);
@@ -201,24 +191,28 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
             //Toast.makeText(getActivity(), R.string.Deleted , Toast.LENGTH_SHORT).show();
             Log.d(TAG,"menu interface done!!!............................"+ note.getId().toString()+ Position);
         }
+        if (id ==R.id.removemenudotsmainID){
+            note.setFolder("Trash");
+            NoteLab.get(getActivity()).updateCrime(note);
+            RecyclerUpdate();
+        }
 
         if (id == R.id.favoritemenudotsmainID){
-            if (Folder.equals("Favorite")){
 
-
-
-                note.setFolder("MainList");
-                NoteLab.get(getActivity()).updateCrime(note);
-
-                RecyclerUpdate();
-            }else {
                 note.setFolder("Favorite");
                 NoteLab.get(getActivity()).updateCrime(note);
 
                 RecyclerUpdate();
 
-            }
 
+
+        }
+
+        if (id ==R.id.removefavoritemenudotsmainID){
+            note.setFolder("MainList");
+            NoteLab.get(getActivity()).updateCrime(note);
+
+            RecyclerUpdate();
         }
     }
 
@@ -342,5 +336,24 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
 
         return true;
+    }
+
+    @Override
+    public void InterFaceonInflatePopUp(View view, PopupMenu popupMenu,  int position) {
+        Note note= notes.get(position);
+
+         if (Folder.equals("MainList")) {
+             popupMenu.inflate(R.menu.menudotsmain);
+
+
+
+         }else if (Folder.equals("Trash")){
+             popupMenu.inflate(R.menu.menudotmain_trash);
+
+
+         }else if (Folder.equals("Favorite")){
+             popupMenu.inflate(R.menu.menudotmain_favorite);
+         }
+
     }
 }

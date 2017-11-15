@@ -35,7 +35,7 @@
     <string name="more_apps">More Apps</string>
     <string name="new_note">New Note</string>
     <string name="Camera">Camera</string>
-    <string name="delete">delete</string>
+    <string name="delete">Delete</string>
     <string name="Search">Search</string>
     <string name="Deleted">Deleted!</string>
     <string name="saved">Saved!</string>
@@ -44,5 +44,8 @@
     <string name="trash">Trash</string>
     <string name="add_to_favorite">Add to Favorite</string>
     <string name="created">Created:</string>
+    <string name="Remove">Remove</string>
+    <string name="remove_from_favorite">Remove from favorite</string>
+    <string name="enter_a_quick_note">Enter a Quick Note !</string>
 
 </resources>
