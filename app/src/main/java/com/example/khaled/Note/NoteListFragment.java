@@ -158,6 +158,39 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         } //the condation added in order to work with onResume to notify only
 
 
+       // RecyclerAdmob();
+
+
+       /* StoryModelM storyModelM1 = new StoryModelM();
+        storyModelM1.setViewType(2);
+        mModel.add(1 , storyModelM1);
+        mModel.add(5 ,storyModelM1);*/
+
+
+
+
+    }
+
+    public void RecyclerAdmob(){
+
+        /**
+         * public void recyclerviewAd(){
+
+         for (int i = 0 ; i<mModel.size() ; i+=4){
+         AdView adViewRecycler = new AdView(this);
+         adViewRecycler.setAdSize(new AdSize(320 , 150));
+         adViewRecycler.setAdUnitId("ca-app-pub-1156456518677227/5827654096");
+         adViewRecycler.loadAd(new AdRequest.Builder().build());
+         StoryModelM storyad = new StoryModelM(adViewRecycler);
+         mModel.add(i,adViewRecycler);
+         }
+
+         */
+
+        for (int i = 0 ; i<notes.size() ; i+=10){
+            notes.add(i,null);
+        }
+
 
 
     }

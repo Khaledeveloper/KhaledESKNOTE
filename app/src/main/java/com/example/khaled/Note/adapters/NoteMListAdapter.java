@@ -19,6 +19,8 @@ import com.example.khaled.Note.interfaces.InterfaceOnCreatePopUpMenuMain;
 import com.example.khaled.Note.interfaces.InterfaceOnLongClick;
 import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,9 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crimeholder>{
+public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<Note> mNotes;
     Context mContext;
+    private static final int MENU_ITEM_VIEW_TYPE = 0;
+    private static final int AD_VIEW_TYPE = 1;
+
     InterfaceOnLongClick mInterfaceOnLongClick;
     InterfacePopupMenuMainRecycler mInterfacePopupMenuMainRecycler;
     InterfaceOnCreatePopUpMenuMain interfaceOnCreatePopUpMenuMain;
@@ -49,6 +54,10 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
     }
 
 
+
+
+
+
     public void setOnlongClick(InterfaceOnLongClick interfaceOnLongClick){
         mInterfaceOnLongClick =interfaceOnLongClick;
     }
@@ -59,6 +68,38 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
         notifyDataSetChanged();
     }
 
+
+
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        switch (viewType){
+
+            case AD_VIEW_TYPE:
+                View adbannerview = LayoutInflater.from(parent.getContext()).inflate(R.layout.admob_row_list, parent,false);
+                return new AdViewHolder(adbannerview);
+            case MENU_ITEM_VIEW_TYPE:
+            default:
+
+                View MeunItemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.crime_list_row, parent, false);
+                return new Crimeholder(MeunItemview);
+
+
+        }
+
+    }
+
+    /**
+     *
+     * NoteView viewHolder**************************************************************
+     *
+     *
+     *
+     *
+     *
+     */
+
     public class Crimeholder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         private TextView mTitleCrime , mDateCrime;
         private TextView mContentNote;
@@ -68,7 +109,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
         CardView mCardView;
 
 
-        public Crimeholder(View itemView/*, NoteListActivity crimeListActivity*/) {
+        public Crimeholder(final View itemView/*, NoteListActivity crimeListActivity*/) {
             super(itemView);
 
 
@@ -177,69 +218,115 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
         }
     }
 
-    @Override
-    public Crimeholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+    /**
+     *
+     * AdView viewHolder**************************************************************
+     *
+     *
+     *
+
+
+     *
+     *
+     */
+
+    public class AdViewHolder extends RecyclerView.ViewHolder {
+        public AdView mAdView;
+
+        public AdViewHolder(View itemView) {
+            super(itemView);
+            mAdView =(AdView) itemView.findViewById(R.id.admobrowlist);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+
+        }
+    }
+
+
+
+
+
+//old before ad a Admob
+        /*LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.crime_list_row , parent , false);
         //Crimeholder crimeholder= new Crimeholder(view, mCrimeListActivity);
 
 
-        return new Crimeholder(view);
+        return new Crimeholder(view);*/
         //  return crimeholder;
-    }
+
 
     @Override
-    public void onBindViewHolder(final Crimeholder holder, final int position) {
+    public void onBindViewHolder( RecyclerView.ViewHolder holder,  int position) {
+   int viewType = getItemViewType(position);
+       if (viewType == AD_VIEW_TYPE) {
 
-        Note note = mNotes.get(position);
-        holder.Bindcrime(note);
-
-            /*if (!NoteListFragment.isSelected) {
-
-
-                holder.checkdelete.setVisibility(View.GONE);
-            }else {
-                holder.checkdelete.setVisibility(View.VISIBLE);
-            }*/
-
-
-        holder.checkdelete.setVisibility(View.GONE);
-        holder.mCheckBoxList.setVisibility(View.GONE);
-
-        holder.menudots.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final PopupMenu popupMenu = new PopupMenu(mContext,holder.menudots);
-
-                if (interfaceOnCreatePopUpMenuMain!=null){
-                    interfaceOnCreatePopUpMenuMain.InterFaceonInflatePopUp(v , popupMenu, position);
-                }
-
-               // popupMenu.inflate(R.menu.menudotsmain);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        mInterfacePopupMenuMainRecycler.onClickPopUpMenuMainRecycler(item, mContext , position , popupMenu);
-                        int id = item.getItemId();
+       }else if (viewType ==MENU_ITEM_VIEW_TYPE){
 
 
 
-                        return false;
-                    }
-                });
 
-                popupMenu.show();
-            }
-        });
+                    Note note= mNotes.get(position);
+                     Crimeholder crimeholder =(Crimeholder)holder;
+                    crimeholder.Bindcrime(note);
+
+                    crimeholder.checkdelete.setVisibility(View.GONE);
+                    crimeholder.mCheckBoxList.setVisibility(View.GONE);
+
+                  /*  crimeholder.menudots.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final int pos = holder.getAdapterPosition();
+
+                            final PopupMenu popupMenu = new PopupMenu(mContext,crimeholder.menudots);
+
+                            if (interfaceOnCreatePopUpMenuMain!=null){
+                                interfaceOnCreatePopUpMenuMain.InterFaceonInflatePopUp(v , popupMenu, pos);
+                            }
+
+                            // popupMenu.inflate(R.menu.menudotsmain);
+                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    int pos = holder.getAdapterPosition();
+                                    mInterfacePopupMenuMainRecycler.onClickPopUpMenuMainRecycler(item, mContext , pos , popupMenu);
+                                    int id = item.getItemId();
+
+
+
+                                    return false;
+                                }
+                            });
+
+                            popupMenu.show();
+                        }
+                    });*/
+
+
+        }
+
 
 
 
     }
+
+
 
        /* @Override
         public int getItemViewType(int position) {
             return super.getItemViewType(position);
         }*/
+
+
+
+
+    @Override
+    public int getItemViewType(int position) {
+        //every 8 item there will be an ad
+
+        return (position% 4 == 0) ? AD_VIEW_TYPE: MENU_ITEM_VIEW_TYPE;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -250,5 +337,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<NoteMListAdapter.Crim
     public void setCrimes(List<Note> notes) {
         mNotes = notes;
     }
+
+
 
 }

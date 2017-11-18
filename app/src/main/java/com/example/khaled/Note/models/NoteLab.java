@@ -90,9 +90,7 @@ public class NoteLab {
     public List<Note> getCrimes(String Folder){
        List<Note> notes = new ArrayList<>();
 
-        NoteCursorWrapper cursor  = queryCrimes(NoteTable.Cols.FOLDER+"= ?",
-
-                new String[]{Folder});//query crime is below here
+        NoteCursorWrapper cursor  = queryCrimes(NoteTable.Cols.FOLDER+"= ?", new String[]{Folder});//query crime is below here
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
