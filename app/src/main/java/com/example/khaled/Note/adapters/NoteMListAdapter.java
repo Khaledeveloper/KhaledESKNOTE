@@ -324,7 +324,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
         //every 8 item there will be an ad
 
-        return (position% 4 == 0) ? AD_VIEW_TYPE: MENU_ITEM_VIEW_TYPE;
+        return (position% 8 == 0) ? AD_VIEW_TYPE: MENU_ITEM_VIEW_TYPE;
     }
 
 
