@@ -14,6 +14,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -57,6 +58,7 @@ public class NoteListFragment extends Fragment implements InterfaceOnLongClick,I
     static boolean isSelected = false;
     List<Note> notes;
     ArrayList<Note> SelectedItems = new ArrayList<>();
+    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,7 +117,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
                 AddNewCrime();
             }
         });
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         RecyclerUpdate();
 
@@ -225,7 +227,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         Note note = notes.get(position);
        // String Folder_Name = NoteLab.get(getActivity()).getCrime(note.getId()).getFolder();
          String Folder_Name = note.getFolder();
-        Toast.makeText(getActivity(), Folder_Name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), position + notes.get(position).getTitle().toString(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -291,6 +293,16 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         return true;
 
          */
+        NoteLab noteLab = NoteLab.get(getActivity());
+        notes = noteLab.getCrimes(Folder);
+
+        if (mAdapter == null) {
+            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity());
+            mRecyclerView.setAdapter(mAdapter);
+        }else {
+            mAdapter.setCrimes(notes);
+            mAdapter.notifyDataSetChanged();
+        }
 
         ArrayList<Note>newList = new ArrayList<>();
         for (Note note : notes){
@@ -327,6 +339,26 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         MenuItem menuItem = menu.findItem(R.id.search_main_listID);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+
+                return true;
+            }
+        });
+        MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Toast.makeText(getActivity(), "closed", Toast.LENGTH_SHORT).show();
+               
+                return true;
+            }
+        });
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -342,10 +374,34 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        switch (item.getItemId()){
+        if (id == R.id.layoutmangerIDMAIN) {
+
+                mLayoutManager = new GridLayoutManager(getActivity(), 2);
+
+
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            RecyclerUpdate();
+        }
+
+      /*  switch (item.getItemId()){
             case R.id.menu_item_new_crime:
                AddNewCrime();
+
+            case R.id.layoutmangerIDMAIN:
+
+
+                if (mLayoutManager==new LinearLayoutManager(getActivity())) {
+                    mLayoutManager = new GridLayoutManager(getActivity(), 2);
+
+                }else if (mLayoutManager==new GridLayoutManager(getActivity(),2)){
+                    mLayoutManager = new LinearLayoutManager(getActivity());
+
+                }
+
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                RecyclerUpdate();
 
 
 
@@ -355,7 +411,9 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
+        }*/
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

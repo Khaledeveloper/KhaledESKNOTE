@@ -21,6 +21,7 @@ import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.api.BooleanResult;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Context mContext;
     private static final int MENU_ITEM_VIEW_TYPE = 0;
     private static final int AD_VIEW_TYPE = 1;
+    boolean getitemView=true;
 
     InterfaceOnLongClick mInterfaceOnLongClick;
     InterfacePopupMenuMainRecycler mInterfacePopupMenuMainRecycler;
@@ -55,12 +57,13 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position) {
         //every 8 item there will be an ad
+        if (getitemView) {
 
-        return (position% 4 == 0) ? AD_VIEW_TYPE: MENU_ITEM_VIEW_TYPE;
+            return (position % 4 == 0) ? AD_VIEW_TYPE : MENU_ITEM_VIEW_TYPE;
+        }else {
+            return super.getItemViewType(position);
+        }
     }
-
-
-
 
 
 
@@ -72,6 +75,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mNotes = new ArrayList<>();
 
         mNotes.addAll(newList);
+        getitemView =false;
         notifyDataSetChanged();
     }
 
