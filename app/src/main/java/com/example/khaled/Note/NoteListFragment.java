@@ -150,6 +150,10 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
     private void RecyclerUpdate(){
         NoteLab noteLab = NoteLab.get(getActivity());
          notes = noteLab.getCrimes(Folder);
+        for (int i=0; i<notes.size(); i+=4){
+            Note note = new Note();
+            notes.add(i,note);
+        }
         if (mAdapter == null) {
             mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity());
             mRecyclerView.setAdapter(mAdapter);
@@ -182,10 +186,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
     }
         */
 
-       for (int i=0; i<notes.size(); i+=8){
-          Note note = new Note();
-           notes.add(i,note);
-       }
+
 
 
 

@@ -52,6 +52,12 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         //   this.mCrimeListActivity =(NoteListActivity) mContext;
 
     }
+    @Override
+    public int getItemViewType(int position) {
+        //every 8 item there will be an ad
+
+        return (position% 4 == 0) ? AD_VIEW_TYPE: MENU_ITEM_VIEW_TYPE;
+    }
 
 
 
@@ -64,6 +70,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setFilter(ArrayList<Note> newList){
         mNotes = new ArrayList<>();
+
         mNotes.addAll(newList);
         notifyDataSetChanged();
     }
@@ -257,7 +264,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     @Override
-    public void onBindViewHolder( RecyclerView.ViewHolder holder,  int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
    int viewType = getItemViewType(position);
        if (viewType == AD_VIEW_TYPE) {
 
@@ -267,13 +274,13 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
                     Note note= mNotes.get(position);
-                     Crimeholder crimeholder =(Crimeholder)holder;
+                     final Crimeholder crimeholder =(Crimeholder)holder;
                     crimeholder.Bindcrime(note);
 
                     crimeholder.checkdelete.setVisibility(View.GONE);
                     crimeholder.mCheckBoxList.setVisibility(View.GONE);
 
-                  /*  crimeholder.menudots.setOnClickListener(new View.OnClickListener() {
+                  crimeholder.menudots.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             final int pos = holder.getAdapterPosition();
@@ -300,7 +307,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                             popupMenu.show();
                         }
-                    });*/
+                    });
 
 
         }
@@ -320,12 +327,7 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
 
-    @Override
-    public int getItemViewType(int position) {
-        //every 8 item there will be an ad
 
-        return (position% 8 == 0) ? AD_VIEW_TYPE: MENU_ITEM_VIEW_TYPE;
-    }
 
 
     @Override
