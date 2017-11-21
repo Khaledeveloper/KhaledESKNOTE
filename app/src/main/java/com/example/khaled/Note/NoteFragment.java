@@ -58,6 +58,7 @@ import java.util.UUID;
 public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*implementsInterfaceOnSelectOptionMenuPager*/ {
 
 
+    public static final int REQUEST_TIMEPICKER = 5;
     EditText mEditText, mContentText;
     public Toolbar mToolbar;
     Button mDateButtn ,ChooseContactbtn;
@@ -544,6 +545,20 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
 
 
+        }
+        if (id==R.id.AlarmNoteContectID){
+            /*
+                mDate = mNote.getDate();
+                FragmentManager fragmentManager = getFragmentManager();
+                DialogPickerFragment dialogPickerFragment = DialogPickerFragment.newInstace(mDate);
+                dialogPickerFragment.setTargetFragment(NoteFragment.this, REQUEST_DATE);
+                dialogPickerFragment.show(fragmentManager ,DIALOG_DATE );
+             */
+
+            FragmentManager fm = getFragmentManager();
+            TimePickerFragment timePickerFragment =  TimePickerFragment.newInstace();
+            timePickerFragment.setTargetFragment(NoteFragment.this, REQUEST_TIMEPICKER);
+            timePickerFragment.show(fm,null);
         }
 
         return super.onOptionsItemSelected(item);

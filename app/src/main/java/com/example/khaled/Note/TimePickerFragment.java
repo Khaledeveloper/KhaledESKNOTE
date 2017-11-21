@@ -3,6 +3,7 @@ package com.example.khaled.Note;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -23,6 +24,16 @@ public class TimePickerFragment extends DialogFragment {
 
 TimePicker mTimePicker;
 
+    public static TimePickerFragment newInstace(){
+
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+
+
+        return timePickerFragment;
+
+
+    }
+
 
     public TimePickerFragment() {
         // Required empty public constructor
@@ -42,8 +53,40 @@ mTimePicker =(TimePicker)view.findViewById(R.id.TimePickerID);
                 .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+ Calendar calendar1 = Calendar.getInstance();
+
+                        if (Build.VERSION.SDK_INT>=23){
+                        calendar1.set(
+                                calendar1.get(Calendar.YEAR),
+                            calendar1.get(Calendar.MONTH),
+                            calendar1.get(Calendar.DAY_OF_MONTH),
+                            mTimePicker.getHour(),
+                            mTimePicker.getMinute(),
+                                0
+
+                               );
+                        }else {
+                            calendar1.set(
+                                    calendar1.get(Calendar.YEAR),
+                            calendar1.get(Calendar.MONTH),
+                            calendar1.get(Calendar.DAY_OF_MONTH),
+                            mTimePicker.getCurrentHour(),
+                            mTimePicker.getCurrentMinute(),
+                                    0
+
+                               );
+                        }
+                        setAlarm(calendar1.getTimeInMillis());
+
+
+
 
                     }
                 }).create();
     }
+
+    private void setAlarm(long timeInMillis) {
+    }
+
+
 }

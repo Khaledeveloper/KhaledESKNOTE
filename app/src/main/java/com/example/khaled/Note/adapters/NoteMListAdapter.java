@@ -21,7 +21,6 @@ import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.common.api.BooleanResult;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Note> mNotes;
     Context mContext;
     private static final int MENU_ITEM_VIEW_TYPE = 0;
@@ -43,17 +42,19 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //   NoteListFragment mCrimeListFragment;
 
 
-    public NoteMListAdapter(List<Note> notes, InterfaceOnLongClick interfaceOnlong, InterfacePopupMenuMainRecycler interfacePopupMenuMainRecycler, InterfaceOnCreatePopUpMenuMain interfaceOnCreatePopUpMenuMain, Context context) {
+    public NoteMListAdapter(List<Note> notes, InterfaceOnLongClick interfaceOnlong, InterfacePopupMenuMainRecycler interfacePopupMenuMainRecycler, InterfaceOnCreatePopUpMenuMain interfaceOnCreatePopUpMenuMain, Context context, boolean getitemView) {
         // this.mContext = ctx;
         mNotes = notes;
         this.mInterfaceOnLongClick = interfaceOnlong;
         this.mInterfacePopupMenuMainRecycler = interfacePopupMenuMainRecycler;
         this.interfaceOnCreatePopUpMenuMain = interfaceOnCreatePopUpMenuMain;
         this.mContext = context;
+        this.getitemView = getitemView;
 
         //   this.mCrimeListActivity =(NoteListActivity) mContext;
 
     }
+
     @Override
     public int getItemViewType(int position) {
         //every 8 item there will be an ad
@@ -70,14 +71,19 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setOnlongClick(InterfaceOnLongClick interfaceOnLongClick){
         mInterfaceOnLongClick =interfaceOnLongClick;
     }
+    public void setgetItemViewType(boolean getitemView){
+        this.getitemView = getitemView;
+    }
 
     public void setFilter(ArrayList<Note> newList){
         mNotes = new ArrayList<>();
 
         mNotes.addAll(newList);
-        getitemView =false;
+       // getitemView =false;
         notifyDataSetChanged();
     }
+
+
 
 
 
@@ -100,6 +106,8 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
     }
+
+
 
     /**
      *

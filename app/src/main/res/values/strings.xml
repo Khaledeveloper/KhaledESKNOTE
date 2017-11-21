@@ -49,5 +49,6 @@
     <string name="enter_a_quick_note">Enter a Quick Note !</string>
     <string name="adUnitId">ca-app-pub-1156456518677227/5827654096</string>
     <string name="layout">Layout</string>
+    <string name="alarm">Alarm</string>
 
 </resources>

@@ -31,6 +31,10 @@
         </activity>
         <activity android:name=".AddNote">
         </activity>
+
+        <receiver android:name=".AlarmManager.NoteReminder"
+                  android:enabled="true"
+                  android:exported="true"/>
     </application>
 
 </manifest>

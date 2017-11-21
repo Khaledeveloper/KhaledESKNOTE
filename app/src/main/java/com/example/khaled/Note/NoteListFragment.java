@@ -4,7 +4,6 @@ package com.example.khaled.Note;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -37,7 +36,6 @@ import com.example.khaled.Note.interfaces.InterfaceOnLongClick;
 import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
 import com.example.khaled.Note.models.NoteLab;
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +57,8 @@ public class NoteListFragment extends Fragment implements InterfaceOnLongClick,I
     List<Note> notes;
     ArrayList<Note> SelectedItems = new ArrayList<>();
     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+
+    boolean getItemView = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +119,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         });
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerUpdate();
+        RecyclerUpdate(true);
 
         if (!isSelected){
             textViewToolbar.setVisibility(View.GONE);
@@ -146,20 +146,45 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         startActivity(getActivity().getIntent());
          */
 
-        RecyclerUpdate();
+        RecyclerUpdate(true);
     }
+    private void RecylerUpdateSearch(boolean getItemVieww){
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        NoteLab noteLab = NoteLab.get(getActivity());
+        notes = noteLab.getCrimes(Folder);
+        if (getItemVieww){
+            for (int i=0; i<notes.size(); i+=4){
+                Note note = new Note();
+                notes.add(i,note);
+            }
+        }
 
-    private void RecyclerUpdate(){
+            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity(),getItemVieww);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+
+    private void RecyclerUpdate(boolean getItemVieww){
+       // this.getItemView = getItemVieww;
         NoteLab noteLab = NoteLab.get(getActivity());
          notes = noteLab.getCrimes(Folder);
-        for (int i=0; i<notes.size(); i+=4){
-            Note note = new Note();
-            notes.add(i,note);
-        }
+
+            for (int i = 0; i < notes.size(); i += 4) {
+                Note note = new Note();
+                notes.add(i, note);
+            }
+
         if (mAdapter == null) {
-            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity());
+            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity(),getItemVieww);
             mRecyclerView.setAdapter(mAdapter);
         }else {
+            //to set the getitemviewtype to true so add the ad again
+            if (getItemVieww){
+
+                mAdapter.setgetItemViewType(getItemVieww);
+                mAdapter.setCrimes(notes);
+                mAdapter.notifyDataSetChanged();
+            }
             mAdapter.setCrimes(notes);
             mAdapter.notifyDataSetChanged();
         } //the condation added in order to work with onResume to notify only
@@ -218,6 +243,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
 
     }
+
     public void onBackPressed(){
 
     }
@@ -239,7 +265,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         int id = item.getItemId();
         if (id == R.id.deletemenudotsmainID){
             NoteLab.get(getActivity()).deleteNote(note);
-            RecyclerUpdate();
+            RecyclerUpdate(true);
 
            /* mAdapter = new NoteMListAdapter(notes,this, this,getActivity());
             mRecyclerView.setAdapter(mAdapter);
@@ -251,7 +277,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         if (id ==R.id.removemenudotsmainID){
             note.setFolder("Trash");
             NoteLab.get(getActivity()).updateCrime(note);
-            RecyclerUpdate();
+            RecyclerUpdate(true);
         }
 
         if (id == R.id.favoritemenudotsmainID){
@@ -259,7 +285,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
                 note.setFolder("Favorite");
                 NoteLab.get(getActivity()).updateCrime(note);
 
-                RecyclerUpdate();
+                RecyclerUpdate(true);
 
 
 
@@ -269,7 +295,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
             note.setFolder("MainList");
             NoteLab.get(getActivity()).updateCrime(note);
 
-            RecyclerUpdate();
+            RecyclerUpdate(true);
         }
     }
 
@@ -293,16 +319,16 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         return true;
 
          */
-        NoteLab noteLab = NoteLab.get(getActivity());
+        /*NoteLab noteLab = NoteLab.get(getActivity());
         notes = noteLab.getCrimes(Folder);
 
         if (mAdapter == null) {
-            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity());
+            mAdapter = new NoteMListAdapter(notes,this, this,this,getActivity(),getItemView);
             mRecyclerView.setAdapter(mAdapter);
         }else {
             mAdapter.setCrimes(notes);
             mAdapter.notifyDataSetChanged();
-        }
+        }*/
 
         ArrayList<Note>newList = new ArrayList<>();
         for (Note note : notes){
@@ -349,13 +375,17 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
+                //to disable getitemviewtype for correct search
+                RecylerUpdateSearch(false);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 Toast.makeText(getActivity(), "closed", Toast.LENGTH_SHORT).show();
-               
+                //to enable again
+                RecylerUpdateSearch(true);
+
                 return true;
             }
         });
@@ -382,7 +412,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
 
             mRecyclerView.setLayoutManager(mLayoutManager);
-            RecyclerUpdate();
+            RecyclerUpdate(true);
         }
 
       /*  switch (item.getItemId()){
@@ -424,13 +454,13 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         if (id== R.id.TrashMainID){
 
             Folder= "Trash";
-            RecyclerUpdate();
+            RecyclerUpdate(true);
            // Toast.makeText(getActivity(), "donnnnnneeee!!!", Toast.LENGTH_SHORT).show();
 
         }
         if (id == R.id.MainListID){
             Folder ="MainList";
-            RecyclerUpdate();
+            RecyclerUpdate(true);
 
         }
 
@@ -440,7 +470,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
             }
             Folder ="Favorite";
-            RecyclerUpdate();
+            RecyclerUpdate(true);
 
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
