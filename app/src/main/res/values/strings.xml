@@ -50,5 +50,6 @@
     <string name="adUnitId">ca-app-pub-1156456518677227/5827654096</string>
     <string name="layout">Layout</string>
     <string name="alarm">Alarm</string>
+    <string name="off">Off</string>
 
 </resources>

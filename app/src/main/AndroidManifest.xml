@@ -32,7 +32,8 @@
         <activity android:name=".AddNote">
         </activity>
 
-        <receiver android:name=".AlarmManager.NoteReminder"
+        <receiver android:process=":remote"
+            android:name=".AlarmManager.NoteReminder"
                   android:enabled="true"
                   android:exported="true"/>
     </application>

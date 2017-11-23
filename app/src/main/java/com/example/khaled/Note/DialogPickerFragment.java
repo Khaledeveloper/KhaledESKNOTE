@@ -68,6 +68,7 @@ public class DialogPickerFragment extends DialogFragment {
         sendResult(Activity.RESULT_OK, date);
 
 
+
                         FragmentManager fm = getFragmentManager();
                         TimePickerFragment timePickerFragment = new TimePickerFragment();
                         timePickerFragment.show(fm, null);

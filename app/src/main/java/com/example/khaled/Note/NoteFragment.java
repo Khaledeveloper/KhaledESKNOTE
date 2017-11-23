@@ -2,6 +2,9 @@ package com.example.khaled.Note;
 
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -35,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.khaled.Note.AlarmManager.NoteReminder;
 import com.example.khaled.Note.activities.NoteListActivity;
 import com.example.khaled.Note.activities.ViewPagerActivity;
 import com.example.khaled.Note.interfaces.InterfaceOnBackPressed;
@@ -80,6 +84,10 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
     Uri uriDataGallery;
     InputStream inputStreamGallery;
     Intent cameraintent;
+    Long TIMEMIL;
+    //AlarmManager alarmManager;
+    //PendingIntent pendingIntent;
+
    // Intent mDataGallery;
 
 
@@ -138,6 +146,9 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
         //requere premission
         mPicFile= NoteLab.get(getActivity()).getPhotoFile(mNote);
+      /* alarmManager=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(), NoteReminder.class);
+       pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,0);*/
     }
 
 
@@ -450,13 +461,35 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
                 e.printStackTrace();
             }*/
 
+        } else if (requestCode==REQUEST_TIMEPICKER){
+            /*
+            Date date =(Date)data
+                    .getSerializableExtra(DialogPickerFragment.DATE_KEY_BACK);
+             */
+            TIMEMIL =data.getLongExtra(TimePickerFragment.TIMEMILL_BACK,0);
+            Toast.makeText(getActivity(), ""+TIMEMIL, Toast.LENGTH_SHORT).show();
+
+            //setAlarm(TIMEMIL);
         }
 
 
     }
 
 
-//dateupdate
+    private void setAlarm(Long timemil) {
+      AlarmManager  alarmManager=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(), NoteReminder.class);
+     PendingIntent   pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,0);
+
+
+        alarmManager.setRepeating(AlarmManager.RTC,timemil,AlarmManager.INTERVAL_DAY,pendingIntent);
+    }
+    /*private void AlarmCancel(){
+        alarmManager.cancel(pendingIntent);
+    }*/
+
+
+    //dateupdate
     private void DateUpdate(){
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -559,6 +592,10 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
             TimePickerFragment timePickerFragment =  TimePickerFragment.newInstace();
             timePickerFragment.setTargetFragment(NoteFragment.this, REQUEST_TIMEPICKER);
             timePickerFragment.show(fm,null);
+        }
+
+        if (id==R.id.TurnOffAlarmID){
+            //AlarmCancel();
         }
 
         return super.onOptionsItemSelected(item);
