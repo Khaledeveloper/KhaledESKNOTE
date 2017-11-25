@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -51,7 +52,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -469,7 +472,8 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
             TIMEMIL =data.getLongExtra(TimePickerFragment.TIMEMILL_BACK,0);
             Toast.makeText(getActivity(), ""+TIMEMIL, Toast.LENGTH_SHORT).show();
 
-            //setAlarm(TIMEMIL);
+           setAlarm(TIMEMIL);
+           // NoteReminder.setAlarm(TIMEMIL,getActivity(),true);
         }
 
 
@@ -477,12 +481,27 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
 
     private void setAlarm(Long timemil) {
+       // List<Note> notes= new ArrayList<>();
+
+       // notes=NoteLab.get(getActivity()).getAllNotes();
+        String NoteIndex =String.valueOf(mNote.getId());
+//        int NoteIDint = Integer.parseInt(NoteIndex);
+        int NoteUniqID = (int) System.currentTimeMillis();
+        //for (int i =0;i<notes.size();i++ ){
+         //   i = notes.indexOf(mNote);
+
+
       AlarmManager  alarmManager=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), NoteReminder.class);
-     PendingIntent   pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,0);
+     PendingIntent   pendingIntent = PendingIntent.getBroadcast(getActivity(),NoteUniqID,intent,0);
+
 
 
         alarmManager.setRepeating(AlarmManager.RTC,timemil,AlarmManager.INTERVAL_DAY,pendingIntent);
+
+
+
+       // }
     }
     /*private void AlarmCancel(){
         alarmManager.cancel(pendingIntent);
@@ -595,7 +614,12 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         }
 
         if (id==R.id.TurnOffAlarmID){
-            //AlarmCancel();
+            List<Note> notes= new ArrayList<>();
+
+            notes=NoteLab.get(getActivity()).getAllNotes();
+           String NoteIndex =String.valueOf(mNote.getId());
+          //  NoteReminder.setAlarm(TIMEMIL,getActivity(),false);
+            Toast.makeText(getActivity(), NoteIndex, Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

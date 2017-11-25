@@ -6,6 +6,8 @@ android {
     defaultConfig {
         applicationId "com.example.khaled.Note"
         minSdkVersion 16
+        //this helped me to solve an error
+        multiDexEnabled = true
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -17,6 +19,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {

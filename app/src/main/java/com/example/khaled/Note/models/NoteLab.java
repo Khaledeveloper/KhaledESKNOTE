@@ -110,6 +110,29 @@ public class NoteLab {
        // return mNotes;
     }
 
+    public List<Note> getAllNotes(){
+        List<Note> notes = new ArrayList<>();
+
+        NoteCursorWrapper cursor  = queryCrimes(null,null);//query crime is below here
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            notes.add(cursor.getCrime());
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return notes;
+
+
+
+
+
+        //***********************************
+        //this line was only before DataBase
+        // return mNotes;
+    }
+
 
     public Note getCrime(UUID id){
 

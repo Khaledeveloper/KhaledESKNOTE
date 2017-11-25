@@ -90,7 +90,7 @@ mTimePicker =(TimePicker)view.findViewById(R.id.TimePickerID);
                         int Hr = mTimePicker.getCurrentHour();
                         int Min = mTimePicker.getCurrentMinute();
 
-                       setAlarm(calendar1.getTimeInMillis());
+                       //setAlarm(calendar1.getTimeInMillis());
 long mTimeInMillis =  calendar1.getTimeInMillis();
                         setResult(Activity.RESULT_OK,mTimeInMillis);
                         Toast.makeText(getActivity(), "its"+Hr +" "+Min, Toast.LENGTH_SHORT).show();
