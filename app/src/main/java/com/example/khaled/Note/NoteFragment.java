@@ -493,11 +493,11 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
       AlarmManager  alarmManager=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), NoteReminder.class);
-     PendingIntent   pendingIntent = PendingIntent.getBroadcast(getActivity(),NoteUniqID,intent,0);
+     PendingIntent   pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,0);
 
 
 
-        alarmManager.setRepeating(AlarmManager.RTC,timemil,AlarmManager.INTERVAL_DAY,pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,timemil,pendingIntent);
 
 
 

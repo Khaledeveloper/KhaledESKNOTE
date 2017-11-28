@@ -1,6 +1,8 @@
 package com.example.khaled.Note.AlarmManager;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,7 +10,11 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 
+import com.example.khaled.Note.NoteFragment;
+import com.example.khaled.Note.R;
+import com.example.khaled.Note.activities.NoteListActivity;
 import com.example.khaled.Note.models.Note;
 import com.example.khaled.Note.models.NoteLab;
 
@@ -21,10 +27,13 @@ import java.util.Timer;
  */
 
 public class NoteReminder extends BroadcastReceiver {
+    Context mContext;
     @Override
     public void onReceive(Context context, Intent intent) {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         mediaPlayer.start();
+        AddNotification(context);
+
 
 
     }
@@ -38,6 +47,22 @@ public class NoteReminder extends BroadcastReceiver {
         alarmManager.setRepeating(AlarmManager.RTC,timemil,AlarmManager.INTERVAL_DAY,pendingIntent);
     }
      */
+    public void AddNotification(Context context){
+      NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setContentTitle("MyNote Notification");
+        builder.setSmallIcon(R.drawable.headernoteackground);
+        builder.setContentText("its a reminder of your note!");
+
+        Intent intent = new Intent(context, NoteFragment.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 ,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager manager =(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0,builder.build());
+
+
+    }
+
     public static void setAlarm(Long timemil, Context context, boolean OnOF) {
         boolean onof = true;
         onof = OnOF;
