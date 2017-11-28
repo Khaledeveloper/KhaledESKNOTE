@@ -472,7 +472,11 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
             TIMEMIL =data.getLongExtra(TimePickerFragment.TIMEMILL_BACK,0);
             Toast.makeText(getActivity(), ""+TIMEMIL, Toast.LENGTH_SHORT).show();
 
-           setAlarm(TIMEMIL);
+           //setAlarm(TIMEMIL);
+            String Title = mNote.getTitle();
+            String Content = mNote.getContent();
+            UUID NiteID = mNote.getId();
+            NoteReminder.setAlarm(TIMEMIL,getActivity(),true,Title,Content, NiteID);
            // NoteReminder.setAlarm(TIMEMIL,getActivity(),true);
         }
 
