@@ -166,6 +166,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
 
     private void RecyclerUpdate(boolean getItemVieww){
        // this.getItemView = getItemVieww;
+        //to add spaces for admob
         NoteLab noteLab = NoteLab.get(getActivity());
          notes = noteLab.getCrimes(Folder);
 

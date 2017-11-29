@@ -40,6 +40,7 @@ public class NoteCursorWrapper extends CursorWrapper {
         int NoteBackground = getInt(getColumnIndex(NoteTable.Cols.NOTEBACKGROUND));
         int ToolbarListColor = getInt(getColumnIndex(NoteTable.Cols.TOOLBARLISTCOLOR));
         int ToolbarNoteColor = getInt(getColumnIndex(NoteTable.Cols.TOOLBARNOTECOLOR));
+        int NoteDataBaseID = getInt(getColumnIndex(NoteTable.Cols.NOTEDATABASEID));
 
 
 
@@ -60,6 +61,7 @@ public class NoteCursorWrapper extends CursorWrapper {
         note.setNoteBackground(NoteBackground);
         note.setToolbarListColor(ToolbarListColor);
         note.setToolbarNoteColor(ToolbarNoteColor);
+        note.setNoteDataBaseID(NoteDataBaseID);
 
 
 

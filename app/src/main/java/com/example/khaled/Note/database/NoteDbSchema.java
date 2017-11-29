@@ -27,6 +27,8 @@ public class NoteDbSchema {
             public static final String TOOLBARLISTCOLOR="toolbarlistcolor";
             public static final String TOOLBARNOTECOLOR="toolbarnotecolor";
 
+            public static final String NOTEDATABASEID="notedatabaseID";
+
 
 
         }

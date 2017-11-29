@@ -43,7 +43,7 @@ public class NoteReminder extends BroadcastReceiver {
         mContent = intent.getStringExtra(CONTENT_OF_NOTALARM);
 
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
         mediaPlayer.start();
         AddNotification(context);
 
@@ -61,6 +61,7 @@ public class NoteReminder extends BroadcastReceiver {
     }
      */
     public void AddNotification(Context context){
+        int NotificationID = (int) System.currentTimeMillis();
 
       NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setContentTitle(mTitle);
@@ -77,29 +78,60 @@ public class NoteReminder extends BroadcastReceiver {
         builder.setContentIntent(pendingIntent);
 
         NotificationManager manager =(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0,builder.build());
+        manager.notify(NotificationID,builder.build());
 
 
     }
 
-    public static void setAlarm(Long timemil, Context context, boolean OnOF, String Title , String Content, UUID NoteID) {
+    public static void setAlarm(Long timemil, Context context, boolean OnOF, String Title , String Content, UUID NoteID, int NoteDataBaseID) {
         mNoteID = NoteID;
         boolean onof = true;
         onof = OnOF;
         List<Note> notes = new ArrayList<>();
         notes = NoteLab.get(context).getAllNotes();
-       // for (int i = 0; i < notes.size(); i++) {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+
+
+
+
+       /* AlarmManager[] alarmManger = new AlarmManager[1000];
+        ArrayList<PendingIntent>intentAray = new ArrayList<>();
+        for (int x =0; x<alarmManger.length; x++){
             Intent intent = new Intent(context, NoteReminder.class);
             intent.putExtra(TITLE_OF_NOTEALARM,Title);
             intent.putExtra(CONTENT_OF_NOTALARM,Content);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, x, intent, 0);
+            if (OnOF == true) {
+                alarmManger[x].set(AlarmManager.RTC, timemil, pendingIntent);
+                intentAray.add(pendingIntent);
+            } else {
+                if (intentAray.size()>0) {
+                    for (int j =0 ; j<intentAray.size();j++) {
+                        alarmManger[x].cancel(intentAray.get(j));
+                    }
+                    intentAray.clear();
+                }
+            }
+        }*/
+
+
+
+
+
+
+
+
+           AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(context, NoteReminder.class);
+            intent.putExtra(TITLE_OF_NOTEALARM,Title);
+            intent.putExtra(CONTENT_OF_NOTALARM,Content);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NoteDataBaseID, intent, 0);
             if (OnOF == true) {
                 alarmManager.set(AlarmManager.RTC, timemil, pendingIntent);
             } else {
                 alarmManager.cancel(pendingIntent);
             }
-      //  }
+
 
     }
 }

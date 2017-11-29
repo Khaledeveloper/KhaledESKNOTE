@@ -476,7 +476,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
             String Title = mNote.getTitle();
             String Content = mNote.getContent();
             UUID NiteID = mNote.getId();
-            NoteReminder.setAlarm(TIMEMIL,getActivity(),true,Title,Content, NiteID);
+            NoteReminder.setAlarm(TIMEMIL,getActivity(),true,Title,Content, NiteID,mNote.getNoteDataBaseID());
            // NoteReminder.setAlarm(TIMEMIL,getActivity(),true);
         }
 
@@ -618,12 +618,12 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         }
 
         if (id==R.id.TurnOffAlarmID){
-            List<Note> notes= new ArrayList<>();
+            String Title = mNote.getTitle();
+            String Content = mNote.getContent();
+            UUID NiteID = mNote.getId();
 
-            notes=NoteLab.get(getActivity()).getAllNotes();
-           String NoteIndex =String.valueOf(mNote.getId());
-          //  NoteReminder.setAlarm(TIMEMIL,getActivity(),false);
-            Toast.makeText(getActivity(), NoteIndex, Toast.LENGTH_SHORT).show();
+
+            NoteReminder.setAlarm(TIMEMIL,getActivity(),false,Title,Content, NiteID,mNote.getNoteDataBaseID());
         }
 
         return super.onOptionsItemSelected(item);

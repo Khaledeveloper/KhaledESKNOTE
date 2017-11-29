@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.khaled.Note.R;
 import com.example.khaled.Note.activities.ViewPagerActivity;
@@ -19,6 +20,7 @@ import com.example.khaled.Note.interfaces.InterfaceOnCreatePopUpMenuMain;
 import com.example.khaled.Note.interfaces.InterfaceOnLongClick;
 import com.example.khaled.Note.interfaces.InterfacePopupMenuMainRecycler;
 import com.example.khaled.Note.models.Note;
+import com.example.khaled.Note.models.NoteLab;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -29,6 +31,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final String INDEX_OF_THENOTE = "INDEXOFTHENOTE";
     private List<Note> mNotes;
     Context mContext;
     private static final int MENU_ITEM_VIEW_TYPE = 0;
@@ -210,6 +213,9 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             //changing the intent from Mainactivity to ViewPager
             //  Intent intent = MainActivity.newIntent(getActivity(),mNote.getId());
             Intent intent = ViewPagerActivity.newIntent(mContext, mNote.getId(),mNote.getFolder());
+            int NoteIndex = mNotes.indexOf(mNote);
+            Toast.makeText(mContext, "clicked"+ NoteIndex, Toast.LENGTH_SHORT).show();
+           // intent.putExtra(INDEX_OF_THENOTE,)
            mContext.startActivity(intent);
 
            /* Intent intent = new Intent(getActivity(),MainActivity.class);
@@ -226,6 +232,8 @@ public class NoteMListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         @Override
         public boolean onLongClick(View v) {
+            Toast.makeText(mContext, "id Data Base"+ mNote.getNoteDataBaseID(), Toast.LENGTH_SHORT).show();
+
             if (mInterfaceOnLongClick!=null) {
 
                 mInterfaceOnLongClick.onLongClickInterface(itemView, getAdapterPosition());

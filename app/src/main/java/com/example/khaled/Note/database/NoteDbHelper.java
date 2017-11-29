@@ -24,7 +24,8 @@ public class NoteDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 //the space after table is very important!!!!!!
         db.execSQL("create table "+ NoteTable.NAME+"("+
-        "_id integer primary key autoincrement,"+
+       // "_id integer primary key autoincrement,"+
+                        NoteTable.Cols.NOTEDATABASEID+" integer primary key autoincrement,"+
                 NoteTable.Cols.UUID+","+
                 NoteTable.Cols.TITLE+","+
                 NoteTable.Cols.CONTENT+","+

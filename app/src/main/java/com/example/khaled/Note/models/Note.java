@@ -26,6 +26,8 @@ public class Note {
     private int ToolbarListColor;
     private int ToolbarNoteColor;
 
+    private int NoteDataBaseID;
+
     public int getContentColor() {
         return mContentColor;
     }
@@ -151,5 +153,13 @@ public class Note {
 
     public void setSolved(boolean solved) {
         mSolved = solved;
+    }
+
+    public int getNoteDataBaseID() {
+        return NoteDataBaseID;
+    }
+
+    public void setNoteDataBaseID(int noteDataBaseID) {
+        NoteDataBaseID = noteDataBaseID;
     }
 }
