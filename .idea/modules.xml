@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Crime.iml" filepath="$PROJECT_DIR$/Crime.iml" />
+      <module fileurl="file://F:\NotesAll\Crime.iml" filepath="F:\NotesAll\Crime.iml" />
       <module fileurl="file://$PROJECT_DIR$/NotesAll.iml" filepath="$PROJECT_DIR$/NotesAll.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/memos.iml" filepath="$PROJECT_DIR$/memos.iml" />
+      <module fileurl="file://F:\NotesAll\memos.iml" filepath="F:\NotesAll\memos.iml" />
     </modules>
   </component>
 </project>

@@ -68,12 +68,13 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
     public static final int REQUEST_TIMEPICKER = 5;
     EditText mEditText, mContentText;
     public Toolbar mToolbar;
-    Button mDateButtn ,ChooseContactbtn;
-    CheckBox mCheckBox;
+    Button mDateButtn;
+    //Button ChooseContactbtn;
+    //CheckBox mCheckBox;
     private ImageView IMGview, IMGviewGallery;
     private  boolean canTakePic;
     public Note mNote;
-    private Button TakepicBtn;
+    //private Button TakepicBtn;
     private File mPicFile, mPicGalleryFile;
     public  String Folder;
   public static final String FOLDER_ARGS ="FOLDERARGS";
@@ -184,7 +185,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_crime, container, false);
+        View v = inflater.inflate(R.layout.note_content_layout, container, false);
         setHasOptionsMenu(true);
         Log.d(ViewPagerActivity.TAG,"onCreateView....");
       //  mNote.setFolder(Folder);
@@ -211,8 +212,8 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
             }
         });
-        TakepicBtn =(Button)v.findViewById(R.id.takepicbtnID);
-       TakepicBtn.setVisibility(View.GONE);
+      //  TakepicBtn =(Button)v.findViewById(R.id.takepicbtnID);
+      // TakepicBtn.setVisibility(View.GONE);
 
 
 
@@ -224,7 +225,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
 
 
-
+/* for ChooseContact & checkbox and Take pics
 
         ChooseContactbtn=(Button)v.findViewById(R.id.choosecontactbtnID);
         if (mNote.getContactnumber()!=null) {
@@ -268,12 +269,22 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
 
 
-
-
-
-
         mCheckBox=(CheckBox)v.findViewById(R.id.crime_solvedCheckID);
-       // mCheckBox.setChecked(mNote.isSolved());
+
+        mCheckBox.setChecked(mNote.isSolved());
+
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mNote.setSolved(true);
+
+            }
+        });
+
+        */
+
+
+        // mCheckBox.setChecked(mNote.isSolved());
         mDateButtn=(Button)v.findViewById(R.id.crime_dateBtnID);
         mEditText =(EditText)v.findViewById(R.id.EditTextFragmentID);
         mEditText.setText(mNote.getTitle());
@@ -304,15 +315,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         String date = df.format(mNote.getDate());
         mDateButtn.setText(date);
         //mDateButtn.setEnabled(false);
-        mCheckBox.setChecked(mNote.isSolved());
 
-        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mNote.setSolved(true);
-
-            }
-        });
 
         mDateButtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -351,8 +354,8 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
 
         mDateButtn.setVisibility(View.GONE);
-        ChooseContactbtn.setVisibility(View.GONE);
-        mCheckBox.setVisibility(View.GONE);
+      //  ChooseContactbtn.setVisibility(View.GONE);
+       // mCheckBox.setVisibility(View.GONE);
         ViewPagerActivity.setOnBackPressed(this);
 
 
@@ -416,7 +419,7 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
                     .getSerializableExtra(DialogPickerFragment.DATE_KEY_BACK);
             mNote.setDate(date);
             DateUpdate();
-        }else if (requestCode == REQUEST_CONTACT && data!=null){
+        }/*else if (requestCode == REQUEST_CONTACT && data!=null){
             Uri contactUri = data.getData();
             String[] query = new String[]{
                     ContactsContract.Contacts.DISPLAY_NAME
@@ -437,7 +440,8 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
                 c.close();
             }
 
-        }else if (requestCode ==REQUEST_PIC){
+        }
+        */else if (requestCode ==REQUEST_PIC){
             PicUpdate();
 
         }else if (requestCode ==REQUEST_PICGALLERY){

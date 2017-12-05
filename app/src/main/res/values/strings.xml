@@ -51,5 +51,6 @@
     <string name="layout">Layout</string>
     <string name="alarm">Alarm</string>
     <string name="off">Off</string>
+    <string name="last_updated">Last Updated</string>
 
 </resources>
