@@ -1,104 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/lightbrown">
 
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  tools:context="com.example.khaled.Note.addnotefragment"
 
-                  android:orientation="vertical"
 
-        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
 
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/crime_title_label"
-            style="?android:listSeparatorTextViewStyle"/>-->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/CardViewEdittextTitleADD"
-            android:elevation="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="@color/white"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            >
-            <EditText
+
+
+        <!-- Toolbar -->
+        <include
+            layout="@layout/note_toolbar_layout"/>
+
+
+
+
+
+        <!-- Title CardView -->
+        <!--
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/EditTextFragmentADDID"
+                android:layout_height="0dp"
+                android:id="@+id/CardViewEdittextTitle"
+
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/white"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
                 android:background="@color/white"
-                android:textStyle="bold"
-                android:hint="@string/Enter_Title"/>
+                >
 
-        </android.support.v7.widget.CardView>
 
-        <!-- <TextView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="@string/crime_details_label"
-             style="?android:listSeparatorTextViewStyle"/>-->
+            </android.support.v7.widget.CardView>
+            -->
 
 
 
+
+
+        <!-- Content CardView -->
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/CardViewContentADDID"
-            android:elevation="5dp"
-            android:layout_weight="35"
+            android:layout_height="0dp"
+            android:id="@+id/ADDCardViewContentID"
+            android:background="@color/white"
+            android:layout_margin="5dp"
+
 
             android:foreground="?android:attr/selectableItemBackground"
             app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@color/white"
-            android:layout_margin="8dp"
 
-
+            android:layout_weight="30"
             >
 
-
-            <EditText
+            <!--  a Linearlayout contains 3 childern Title ,
+             Scroolview contains content
+             and images and aRelativeLayout for TextView Created -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/NoteContentADDID"
-                android:hint="Note"
-                android:gravity="left"
+                android:orientation="vertical">
 
-                android:background="@color/white"
-                />
+
+
+
+                <!-- first child -->
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:hint="@string/Enter_Title"
+                    android:id="@+id/ADDEditTextFragmentID"
+                    android:textSize="18sp"
+                    android:layout_margin="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"
+                    android:background="@color/lightbrown"/>
+
+
+
+
+
+
+
+                <!-- second child -->
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="20">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+
+
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_alarm"/>
+                            <Button
+                                android:id="@+id/ADDcrime_dateBtnID"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+
+                                />
+                        </LinearLayout>
+
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:id="@+id/ADDIMGviewID"
+                            android:scaleType="centerInside"
+                            android:cropToPadding="true"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:id="@+id/ADDIMGviewGalleryID"
+
+
+                            />
+
+
+
+
+                        <EditText
+                            android:id="@+id/ADDNoteContentID"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:layout_margin="5dp"
+                            android:padding="1dp"
+                            android:hint="@string/NoteHint"
+                            />
+
+
+
+
+
+
+
+
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+
+
+
+
+                <!-- third child -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ADDCreatedNoteDateID"
+                        android:text="@string/created"
+                        android:textSize="12sp"
+                        android:paddingLeft="5dp"
+
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ADDUpdatedNoteDateID"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="5dp"
+                        android:textSize="12sp"
+                        android:text="@string/last_updated"
+
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <!--
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+
+                    <Button
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+
+                        android:text="@string/choose_contact"
+                        android:id="@+id/choosecontactbtnID"
+                        />
+
+
+                    <CheckBox
+                        android:id="@+id/crime_solvedCheckID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/crime_solved_label"/>
+
+                </LinearLayout>
+
+            -->
+
+
+
+
+
         </android.support.v7.widget.CardView>
 
 
-        <Button
-            android:id="@+id/crime_dateBtnADDID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:background="@color/white"
-            android:layout_marginRight="16dp"
 
-            android:layout_weight=".1"/>
-        <!-- android:layout_below="@id/CardViewContentID"/> -->
 
-        <CheckBox
-            android:id="@+id/crime_solvedCheckADDID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/crime_solved_label"/>
-        <!-- android:layout_below="@id/crime_dateBtnID"/> -->
+
+
+        <!-- Date below Content -->
+
+
+
+
+
 
 
     </LinearLayout>
 
-
-
+</android.support.design.widget.CoordinatorLayout>

@@ -52,5 +52,6 @@
     <string name="alarm">Alarm</string>
     <string name="off">Off</string>
     <string name="last_updated">Last Updated</string>
+    <string name="attach">attach</string>
 
 </resources>

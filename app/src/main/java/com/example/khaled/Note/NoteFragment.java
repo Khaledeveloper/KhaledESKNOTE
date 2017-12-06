@@ -149,7 +149,9 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         mNote = NoteLab.get(getActivity()).getCrime(CrimeID);
 
         //requere premission
-        mPicFile= NoteLab.get(getActivity()).getPhotoFile(mNote);
+        if (NoteLab.get(getActivity()).getPhotoFile(mNote)!= null) {
+            mPicFile = NoteLab.get(getActivity()).getPhotoFile(mNote);
+        }
       /* alarmManager=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), NoteReminder.class);
        pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,0);*/
@@ -353,7 +355,14 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
 
 
-        mDateButtn.setVisibility(View.GONE);
+
+
+    //  mDateButtn.setText("Add Reminder");
+       // mDateButtn.setVisibility(View.GONE);
+
+
+
+
       //  ChooseContactbtn.setVisibility(View.GONE);
        // mCheckBox.setVisibility(View.GONE);
         ViewPagerActivity.setOnBackPressed(this);
@@ -391,14 +400,14 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
 
     @Override
     public void onDestroy() {
-        deleteEmptyNote();
+       // deleteEmptyNote();
 
         super.onDestroy();
     }
 
     @Override
     public void onDetach() {
-        deleteEmptyNote();
+       // deleteEmptyNote();
 
         Toast.makeText(getActivity(), R.string.saved, Toast.LENGTH_SHORT).show();
         super.onDetach();
@@ -592,15 +601,15 @@ public class NoteFragment extends Fragment implements InterfaceOnBackPressed /*i
         }
 
         if (id== R.id.cameratoolbarID){
-            mNote.setTitleColor(R.color.midbrown);
-            mEditText.setTextColor(mNote.getTitleColor());
+         //   mNote.setTitleColor(R.color.midbrown);
+         //   mEditText.setTextColor(mNote.getTitleColor());
 
-          /*  cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+          cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             Uri uri = Uri.fromFile(mPicFile);
             cameraintent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
 
-            startActivityForResult(cameraintent, REQUEST_PIC);*/
+            startActivityForResult(cameraintent, REQUEST_PIC);
 
 
 

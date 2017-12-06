@@ -28,7 +28,7 @@
 
 
     <!-- Title CardView -->
-
+<!--
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -41,16 +41,10 @@
         android:layout_weight="3"
         android:background="@color/white"
         >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/Enter_Title"
-            android:id="@+id/EditTextFragmentID"
-            android:textSize="18sp"
-            android:layout_margin="5dp"
-            android:background="@color/white"/>
+
 
     </android.support.v7.widget.CardView>
+    -->
 
 
 
@@ -72,11 +66,70 @@
         android:layout_weight="30"
         >
 
+        <!--  a Linearlayout contains 3 childern Title ,
+         Scroolview contains content
+         and images and aRelativeLayout for TextView Created -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+<!-- first child -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="@string/Enter_Title"
+            android:id="@+id/EditTextFragmentID"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            android:paddingBottom="5dp"
+            android:layout_weight="2"
+            android:background="@color/white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:background="@color/lightbrown"/>
+
+
+
+
+
+
+
+    <!-- second child -->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+
+
             >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_alarm"/>
+                <Button
+                    android:id="@+id/crime_dateBtnID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+
+                    />
+            </LinearLayout>
+
 
 
             <ImageView
@@ -94,22 +147,13 @@
 
                 />
 
-            <Button
-                android:id="@+id/crime_dateBtnID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:text="reminder"
-                android:background="@color/white"
 
-                />
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/NoteContentID"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
                     android:layout_margin="5dp"
                     android:padding="1dp"
@@ -119,16 +163,44 @@
 
 
 
-            </ScrollView>
-
-
-
 
 
 
 
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
+
+
+
+   <!-- third child -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/CreatedNoteDateID"
+                    android:text="@string/created"
+                    android:textSize="12sp"
+                    android:paddingLeft="5dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/UpdatedNoteDateID"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="5dp"
+                    android:textSize="12sp"
+                    android:text="@string/last_updated"
+
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
         <!--
         <LinearLayout
                 android:layout_width="match_parent"
@@ -170,30 +242,7 @@
 
 
     <!-- Date below Content -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-      >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/CreatedNoteDateID"
-            android:text="@string/created"
-            android:paddingLeft="5dp"
 
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/UpdatedNoteDateID"
-            android:layout_alignParentRight="true"
-            android:paddingRight="5dp"
-            android:text="@string/last_updated"
-
-            />
-
-    </RelativeLayout>
 
 
 
