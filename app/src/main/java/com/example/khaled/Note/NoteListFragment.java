@@ -90,6 +90,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
         mDrawerLayout=(DrawerLayout)view.findViewById(R.id.DrawerLayoutMainID);
 
+
         ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,mToolbar,R.string.Enter_Content ,R.string.date_picker_title);
 
         if (((AppCompatActivity)getActivity()).getSupportActionBar()!=null) {

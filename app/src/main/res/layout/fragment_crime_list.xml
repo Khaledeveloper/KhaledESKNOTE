@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  set width and height to avoid Illegal Argument Exception  -->
+
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:layout_width="240dp"
+                                       android:layout_width="370dp"
+
 
                                         android:layout_height="800dp"
                                         xmlns:tools="http://schemas.android.com/tools"
                                         android:id="@+id/DrawerLayoutMainID"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        android:fitsSystemWindows="true"
+    android:fitsSystemWindows="true"
                                         tools:openDrawer="start"
                                         >
-    <include
-        layout="@layout/content_crime_list_fragment_layout"/>
 
+
+    <include
+        layout="@layout/content_crime_list_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.NavigationView
         android:layout_width="240dp"
@@ -26,8 +38,14 @@
 
 
 
+
+
+
     </android.support.design.widget.NavigationView>
 
 
 
 </android.support.v4.widget.DrawerLayout>
+
+
+</LinearLayout>
