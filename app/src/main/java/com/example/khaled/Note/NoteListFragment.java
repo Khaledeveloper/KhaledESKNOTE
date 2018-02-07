@@ -417,7 +417,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
             RecyclerUpdate(true);
         }
 
-      /*  switch (item.getItemId()){
+        switch (item.getItemId()){
             case R.id.menu_item_new_crime:
                AddNewCrime();
 
@@ -433,7 +433,7 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
                 }
 
                 mRecyclerView.setLayoutManager(mLayoutManager);
-                RecyclerUpdate();
+                RecyclerUpdate(true);
 
 
 
@@ -443,9 +443,9 @@ mRecyclerView =(RecyclerView)view.findViewById(R.id.mRecyclerviewID);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }*/
+        }
 
-        return super.onOptionsItemSelected(item);
+       // return super.onOptionsItemSelected(item);
     }
 
     @Override
