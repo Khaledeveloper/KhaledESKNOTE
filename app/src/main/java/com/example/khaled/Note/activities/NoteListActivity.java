@@ -18,6 +18,8 @@ public class NoteListActivity extends AbstractFragmentActivity {
     @Override
     protected int getLayoutResID() {
        // return R.layout.tablet_layout_activity;
-        return R.layout.activity_masterdetail;
+       // return R.layout.activity_masterdetail;
+//i just wants to use one layout
+        return R.layout.activity_main;
     }
 }
